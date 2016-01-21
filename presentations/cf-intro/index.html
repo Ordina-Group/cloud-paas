@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CloudFoundry - An Introduction</title>
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link rel="stylesheet" href="css/theme/ordina.css" id="theme">
     <link rel="stylesheet" href="lib/css/zenburn.css">
     <!--Add support for earlier versions of Internet Explorer -->
     <!--[if lt IE 9]>
@@ -15,25 +15,40 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h1>Cloud Foundry</h1>
+            <h3>Introduction to</h3>
 
-            <h2>Introduction</h2>
+            <img src="img/cf-logo.png" class="transparent"/>
 
-            <p>by Dieter Hubau and Maarten Fuchs</p>
+            <div style="margin-top: 5em">
+                <h5>
+                    <p>by <span class="blue">Dieter Hubau</span> and <span class="blue">Maarten Fuchs</span></p>
+
+                    <p>Cloud and PaaS Competence Center</p>
+
+                    <p>© 2016 JWorks</p>
+
+                    <p><span class="orange">Ordina Belgium</span></p>
+                </h5>
+            </div>
         </section>
         <section>
-            <h1>Slide Two</h1>
+            <h3>Why are we here</h3>
 
-            <p>Blabla</p>
+            <img src="img/question.png" class="transparent"/>
+
+            <p class="fragment">Underline the <span class="blue">benefits of a PaaS</span></p>
+            <p class="fragment">Underline the <span class="blue">benefits of a PaaS</span></p>
+            <p class="fragment">Underline the <span class="blue">benefits of a PaaS</span></p>
+            <p class="fragment">Underline the <span class="blue">benefits of a PaaS</span></p>
         </section>
         <section>
             <h1>Code Snippet</h1>
 
             <pre><code class="java">
                 public class WhatAClass {
-                    public static void main (String[] args) {
-                        System.out.println("Hello");
-                    }
+                public static void main (String[] args) {
+                System.out.println("Hello");
+                }
                 }
             </code></pre>
         </section>
@@ -43,7 +58,7 @@
 <script src="js/reveal.js"></script>
 <script>
     Reveal.initialize({
-        transition: 'slide',
+        transition: 'convex',
         dependencies: [
             {
                 src: 'plugin/markdown/marked.js',
