@@ -1,0 +1,29 @@
+{
+  "name": "cf-intro",
+  "version": "1.0.0",
+  "description": "Sample application for the CloudFoundry workshop (by Dieter and Samet)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ordina-oraj/cloud-paas.git"
+  },
+  "keywords": [
+    "cloudfoundry",
+    "javascript",
+    "samet",
+    "dieter",
+    "introduction"
+  ],
+  "author": "samet1.gundogan@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ordina-oraj/cloud-paas/issues"
+  },
+  "homepage": "https://github.com/ordina-oraj/cloud-paas#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
