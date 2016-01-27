@@ -1,0 +1,41 @@
+#solid {
+    border-style: solid;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 300px;
+    border: 6px ridge darkcyan;
+    background-color: #888888;
+}
+#color {
+    color: aqua;
+    font-size: 20px;
+    align: center;
+}
+#solid2 {
+    border-style: solid;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 300px;
+    border: 6px ridge darkcyan;
+    background-color: #888888;
+
+}
+.zwart {
+    background-color: black;
+}
+#rand {
+    border: 1px solid darkcyan;
+}
+button:active {
+    color: darkcyan;
+}
+#rand:hover {
+    background-color: darkcyan;
+    color: white;
+    transition: all 0.3s ease 0s;
+}
+#rand:active {
+    color: #999999;
+}
+
+
