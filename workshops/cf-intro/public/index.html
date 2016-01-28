@@ -17,6 +17,7 @@
 </head>
 <body class="zwart">
 <h1>Game</h1>
+
 <div class="row">
     <div class="col-md-6 col-sm-6 col-xs-6" id="color">Speler 1</div>
     <div class="col-md-6 col-sm-6 col-xs-6" id="color2">Speler 2</div>
@@ -48,8 +49,9 @@
         <div class="col-md-10 col-sm-10 col-xs-10">
             <div class="col-md-12">
                 <ul id="messages"></ul>
-                <form action="" class="forform">
-                    <input class="forinput" id="m" autocomplete="off" /><button class="forbutton">Send</button>
+                <form action="" class="forform" id="chatFormulier">
+                    <input class="forinput" id="chatBericht" autocomplete="off"/>
+                    <button class="forbutton">Send</button>
                 </form>
             </div>
         </div>
@@ -76,6 +78,9 @@
         </div>
     </div>
     <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="client.js"></script>
 </div>
 </body>
 </html>
