@@ -11,32 +11,61 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
+
 </head>
 <body class="zwart">
+
+
+
+<script>
+    $(document).ready(function(){
+        $("#playButton").click(function(){
+            $("#bovensolid2").text("game begin!");
+        });
+    });
+</script>
+
+
+
 <h1>Game</h1>
 
 <div class="row">
     <div class="col-md-6 col-sm-6 col-xs-6" id="color">Speler 1</div>
-    <div class="col-md-6 col-sm-6 col-xs-6" id="color2">Speler 2</div>
+    <div class="col-md-5 col-sm-5 col-xs-5 color2" id="bovensolid2"></div>
 </div>
 <div class="row">
-    <div class="col-md-5 col-sm-5 col-xs-5" id="solid">
+    <div class="col-md-5 col-sm-5 col-xs-5 solid">
         <div class="list-group">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <button type="button" id="rand" class="list-group-item">steen</button>
-                <button type="button" id="rand" class="list-group-item">papier</button>
-                <button type="button" id="rand" class="list-group-item">schaar</button>
-                <button type="button" id="rand" class="list-group-item">hagedis</button>
-                <button type="button" id="rand" class="list-group-item">spock</button>
+                <button type="button" onclick="mySteen()" id="mySteen" class="list-group-item rand">steen</button>
+                <button type="button" onclick="myPapier()" id="myPapier" class="list-group-item rand">papier</button>
+                <button type="button" onclick="mySchaar()" id="mySchaar" class="list-group-item rand">schaar</button>
+                <button type="button" onclick="myHagedis()" id="myHagedis" class="list-group-item rand">hagedis</button>
+                <button type="button" onclick="mySpock()" id="mySpock" class="list-group-item rand">spock</button>
             </div>
         </div>
     </div>
     <div class="col-md-7 col-sm-7 col-xs-7">
         <div class="col-md-12 col-sm-12 col-xs-12" id="solid2">
-            <div class="col-md-12">&nbsp;</div>
+            <img id="myImg" class="witvierkant" src="witte_vierkant.png">
+            <script>
+                function mySteen() {
+                    document.getElementById("myImg").src = "steen.jpg";
+                }
+                function myPapier() {
+                    document.getElementById("myImg").src = "http://2.bp.blogspot.com/_uKYhTYLmzIc/TAzeP4oohcI/AAAAAAAAAMg/OtMmLKGVcek/s1600/blad-papier-t10263.jpg";
+                }
+                function mySchaar() {
+                    document.getElementById("myImg").src = "http://publicdomainvectors.org/photos/nicubunu_Scissors.png";
+                }
+                function myHagedis() {
+                    document.getElementById("myImg").src = "hagedis.gif";
+                }
+                function mySpock() {
+                    document.getElementById("myImg").src = "http://cdn.iphonehacks.com/wp-content/uploads/2015/07/Spock-emoji.jpg";
+                }
+            </script>
+
         </div>
     </div>
 </div>
@@ -48,15 +77,14 @@
     <div class="col-md-6 col-sm-6 col-xs-6" id="solid3">
         <div class="col-md-10 col-sm-10 col-xs-10">
             <div class="col-md-12">
-                <ul id="messages"></ul>
-                <form action="" class="forform" id="chatFormulier">
-                    <input class="forinput" id="chatBericht" placeholder="message" autocomplete="off"/>
-                    <button class="forbutton">Send</button>
-                </form>
+                <div class="gesprek"><ul id="messages"></ul></div>
+                    <form action="" class="forform" id="chatFormulier">
+                        <input class="forinput" id="chatBericht" placeholder="message" autocomplete="off"/><button class="forbutton">Send</button>
+                    </form>
             </div>
         </div>
     </div>
-    <div class="col-md-5 col-sm-5 col-xs-5">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <div class="col-md-12 col-sm-12 col-xs-12" id="solid4">
             <div class="col-md-12">&nbsp;</div>
             <div class="col-md-12">&nbsp;</div>
@@ -77,13 +105,175 @@
             </div>
         </div>
     </div>
-    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    <div class="col-md-1 col-sm-1 col-xs-1">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">ik snap het niet</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <iframe width="420" height="315" src="https://www.youtube.com/embed/Kov2G0GouBw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    </div>
     <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script src="client.js"></script>
 </div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous">
+</script>
 </body>
 </html>
+
+<!--
+afbeeldingen:
+Steen:      https://pbs.twimg.com/profile_images/1409493338/steen.jpg
+papier:     http://2.bp.blogspot.com/_uKYhTYLmzIc/TAzeP4oohcI/AAAAAAAAAMg/OtMmLKGVcek/s1600/blad-papier-t10263.jpg
+schaar:     http://publicdomainvectors.org/photos/nicubunu_Scissors.png
+hagedis:    http://www.bewegende-plaatjes.net/galerij/plaatjes/dieren/hagedissen/images/lizard6.gif
+spock:      http://cdn.iphonehacks.com/wp-content/uploads/2015/07/Spock-emoji.jpg
+
+
+website -> uitleg over afbeeldingen:   http://www.w3schools.com/jsref/prop_img_src.asp
+
+..............................................................................................
+-->
+
+
+
+
+server
+
+    socket.on('chat', function (chatBericht) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
+    console.log('Chat from socket ' + socket + ': ' + chatBericht);     //in command line verschijn "chat from socket .naam. : .bericht."
+    for (var i = 0; i < sockets.length; i++) {
+    sockets[i].emit('chat', chatBericht);                            //een variable eensocket stuurt berichten naar verschillende klanten
+    }
+    });
+
+
+
+
+browser
+
+    socket.on('chat', function (data) {                  // we krijgen een chatbericht van de server --> {}
+    $('#messages').append($('<li>').text(data));     // berichten zullen onder elkaar geplaatst worden door <li>
+
+*/
+
+...................................................................................................
+
+
+server
+
+        socket.on('gamedata', function(mySteen, myPapier, mySchaar, myHagedis, mySpock) {    // als we van de socket een 'gamedata' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
+        console.log('Game data ontvangen: ' + mySteen, myPapier, mySchaar, myHagedis, mySpock);                                                            //in command line verschijn "Game data ontvangen ...."
+        for (var i = 0; i < sockets.length; i++) {
+        sockets[i].emit('gamedata', data);
+        }
+        };
+
+
+
+
+browser
+
+        socket.on('gamedata' function(data) {                           // browser krijgt gamedata binnen
+
+        if(mySteen < myPapier){                                         // if/else bepaald wie wint
+        if(sockets[0] == mySteen){
+        document.write(sockets[1] + "win");
+        }else{                                                          //  mySteen = 1;        //   value = 1  ----> typt dat over in button, ---> eerste solid
+        document.write(sockets[0] + "win");                             //  myPapier = 2;
+        }                                                               //  mySchaar = 3;
+        }elseif(mySteen == mySteen){                                    //  myHagedis = 4;
+        document.write("gelijk")                                        //  mySpock = 5;
+        }else {
+        if(mySteen > mySpock){
+        if(sockets[0] == mySteen)
+        document.write(sockets[0] + "win");
+        }else {
+        document.write(sockets[1] + "win");
+        }
+        }
+
+        if(myPapier < mySchaar) {
+        if(sockets[0] == myPapier){
+        document.write(sockets[1] + "win");
+        }else{
+        document.write(sockets[0] + "win");
+        }
+        }elseif(myPapier == myPapier){
+        document.write("gelijk")
+        }else {
+        if(myPapier > mySteen){
+        if(sockets[0] == mySteen)
+        document.write(sockets[0] + "win");
+        }else {
+        document.write(sockets[1] + "win");
+        }
+        }
+
+        if(mySchaar < myHagedis) {
+        if(sockets[0] == mySchaar){
+        document.write(sockets[1] + "win");
+        }else{
+        document.write(sockets[0] + "win");
+        }
+        }elseif(mySchaar == mySchaar){
+        document.write("gelijk")
+        }else {
+        if(mySchaar > myPapier){
+        if(sockets[0] == mySchaar)
+        document.write(sockets[0] + "win");
+        }else {
+        document.write(sockets[1] + "win");
+        }
+        }
+
+        if(myHagedis < mySpock) {
+        if(sockets[0] == myHagedis){
+        document.write(sockets[1] + "win");
+        }else{
+        document.write(sockets[0] + "win");
+        }
+        }elseif(myHagedis == myHagedis){
+        document.write("gelijk")
+        }else {
+        if(myHagedis > mySchaar){
+        if(sockets[0] == myHagedis)
+        document.write(sockets[0] + "win");
+        }else {
+        document.write(sockets[1] + "win");
+        }
+        }
+
+        if(mySpock > myHagedis) {
+        f(sockets[0] == mySpock){
+        document.write(sockets[0] + "win");
+        }else{
+        document.write(sockets[1] + "win");
+        }
+        }elseif(mySpock == mySpock){
+        document.write("gelijk")
+        }else {
+        if(mySpock > mySteen){
+        if(sockets[0] == mySteen)
+        document.write(sockets[0] + "win");
+        }else {
+        document.write(sockets[1] + "win");
+        }
+        }
+        $('#bovensolid2').text(.....)                                  // boven solid2 -> player 1 of player 2 wint
+
+
+
+
+
+      //  fadeIn() --> komt erbij
+      //  hide() --> gaat weg
 
 
 

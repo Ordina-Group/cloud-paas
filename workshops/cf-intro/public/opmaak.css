@@ -1,9 +1,9 @@
-#solid {
+.solid {
     margin-top: 10px;
     padding-top: 20px;
     padding-bottom: 260px;
     border: 6px outset darkcyan;
-    background-color: #888888;
+    background-color: cadetblue;
     height: 20px;
 }
 #solid2 {
@@ -35,10 +35,13 @@
     font-size: 20px;
     margin-top: -5px;
 }
-#color2 {
+.color2 {
     color: darkcyan ;
     font-size: 20px;
-    margin-top: -5px;
+    margin-top: -9px;
+    background-color: whitesmoke;
+    height: 30px;
+
 }
 #color3 {
     color: seagreen ;
@@ -49,34 +52,34 @@
     background-color: black;
     margin-top: -20px;
 }
-#rand {
+.list-group-item.rand {
     border: 1px solid darkcyan;
 }
 button:active {
     color: darkcyan;
 }
-#rand:hover {
+.list-group-item.rand:hover {
     background-color: darkcyan;
     color: white;
     transition: all 0.3s ease 0s;
 }
-#rand:active {
+.list-group-item.rand:active {
     color: #999999;
 }
 #name {
     font-size: 20px;
     color: white;
 }
-#play {
+#playButton {
     position: relative;
     height: 50px;
 }
-#play:hover {
+#playButton:hover {
     border: 1px solid red;
 }
-#play:active {
+#playButton:active {
     color: red;
-    border: 3px solid red;
+    border: 2px inset red;
 }
 
 
@@ -89,8 +92,8 @@ button:active {
 .forform {
     background: #000;
     padding: 5px;
-    position: fixed;
-    bottom: 5px;
+    position: relative;
+    bottom: 0;
     width: 700px;
     font: 13px Helvetica, Arial;
 }
@@ -111,18 +114,27 @@ button:active {
     margin: 0;
     padding: 0;
 }
+.gesprek {
+    width:700px;
+    height:270px;
+    line-height: 1em;
+    overflow-y: auto;
+    padding:5px;
+}
 #messages li {
     padding: 5px 10px;
 }
 #messages li:nth-child(odd) {
-    background: #eee;
+    background: forestgreen;
 }
-
 .forbutton:active {
     border: 2px solid darkcyan;
 }
 
-
+.witvierkant {
+    height: 280px;
+    width: 350px;
+}
 
 
 

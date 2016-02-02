@@ -10,12 +10,16 @@ $('#playFormulier').submit(function () {                // als submit geactiveer
     return false;
 });
 socket.on('chat', function (data) {                  // we krijgen een chatbericht van de server --> {}
-    $('#messages').append($('<li>').text(data));     // berichten zullen onder elkaar geplaatst worden
+    $('#messages').append($('<li>').text(data + Date(time)));     // berichten zullen onder elkaar geplaatst worden door <li>
 });
 socket.on('play', function (data) {                  // we krijgen een chatbericht van de server --> {}
     console.log('Player ' + data.player + ' [' + data.name + '] wil spelen! HOERA!')
     if (data.player == 2) {
         console.log('LET THE GAMES BEGIN !!!');
-        $('#playButton').hide();
+        $('#playButton').hide();                        //hide() wilt zeggen weg.
     }
 });
+
+
+
+
