@@ -1,25 +1,64 @@
 var socket = io();
+var player = {};
 $('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
-    socket.emit('chat', $('#chatBericht').val());       // stuurt berichten naar de server
-    $('#chatBericht').val('');
+    var chatVeld = $('#chatBericht');
+    socket.emit('chat', chatVeld.val());       // stuurt berichten naar de server
+    chatVeld.val(''); // maakt het chatveld leeg
     return false;
 });
 $('#playFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
-    socket.emit('play', $('#naam').val());              // stuurt berichten naar de server
-    $('#naam').hide();
+    var naamVeld = $('#naam');
+    socket.emit('play', naamVeld.val());              // stuurt berichten naar de server
+    naamVeld.hide();
     return false;
 });
 socket.on('chat', function (data) {                  // we krijgen een chatbericht van de server --> {}
-    $('#messages').append($('<li>').text(data + Date(time)));     // berichten zullen onder elkaar geplaatst worden door <li>
+    var chatPanel = $('.gesprek');
+    var chatMessages = $('#messages');
+    chatMessages.append($('<li>').text(getCurrentTime() + ': ' + data));     // berichten zullen onder elkaar geplaatst worden door <li>
+    chatPanel.scrollTop(chatMessages.height());// automatisch naar beneden scrollen
 });
 socket.on('play', function (data) {                  // we krijgen een chatbericht van de server --> {}
-    console.log('Player ' + data.player + ' [' + data.name + '] wil spelen! HOERA!')
-    if (data.player == 2) {
+    console.log('Player ' + data.number + ' [' + data.name + '] wil spelen! HOERA!');
+    if (data.self) {
+        player = data; // de huidige speler is net toegevoegd
+    }
+    if (data.number == 2) {
         console.log('LET THE GAMES BEGIN !!!');
-        $('#playButton').hide();                        //hide() wilt zeggen weg.
+        $('#playButton').hide();                        //hide() wilt zeggen verbergen
     }
 });
 
+function mySteen() {
+    document.getElementById("myImg").src = "steen.jpg";
+    verstuurKeuzeNaarServer(1);
+}
+function myPapier() {
+    document.getElementById("myImg").src = "http://2.bp.blogspot.com/_uKYhTYLmzIc/TAzeP4oohcI/AAAAAAAAAMg/OtMmLKGVcek/s1600/blad-papier-t10263.jpg";
+    verstuurKeuzeNaarServer(2);
+}
+function mySchaar() {
+    document.getElementById("myImg").src = "http://publicdomainvectors.org/photos/nicubunu_Scissors.png";
+    verstuurKeuzeNaarServer(3);
+}
+function myHagedis() {
+    document.getElementById("myImg").src = "hagedis.gif";
+    verstuurKeuzeNaarServer(4);
+}
+function mySpock() {
+    document.getElementById("myImg").src = "http://cdn.iphonehacks.com/wp-content/uploads/2015/07/Spock-emoji.jpg";
+    verstuurKeuzeNaarServer(5);
+}
 
+function getCurrentTime() {
+    var date = new Date();
+    return date.getHours() + ':' + date.getMinutes();
+}
 
+function verstuurKeuzeNaarServer(keuze) {
+    socket.emit('gamedata', {
+        player: player,
+        keuze: keuze
+    });
+}
 

@@ -10,6 +10,8 @@ app.use(expressAPI.static('public'));                      // verwijzen waar pub
 
 var sockets = [];                                       // hier staat de client informatie in (IP, poort, socket, etc)
 var players = [];
+var gamedata = [];
+var chatMessages = [];
 
 io.on('connection', function (socket) {                 // dat activeert wanneer klant verbonden wordt. io wilt input/output zeggen
     console.log('New connection: ' + socket);           // socket is een browser connectie met de server
@@ -25,12 +27,14 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
                 if (players.length == 1) { // speler 1 is net toegevoegd
                     sockets[i].emit('play', {
                         name: name,
-                        player: 1
+                        number: 1,
+                        self: sockets[i] == socket
                     });
                 } else { // speler 2 is net toegevoegd
                     sockets[i].emit('play', {
                         name: name,
-                        player: 2
+                        number: 2,
+                        self: sockets[i] == socket
                     });
                 }
             }
@@ -40,16 +44,51 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
     socket.on('chat', function (chatBericht) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
         console.log('Chat from socket ' + socket + ': ' + chatBericht);     //in command line verschijn "chat from socket .naam. : .bericht."
+        chatMessages.push(chatBericht);
         for (var i = 0; i < sockets.length; i++) {
             sockets[i].emit('chat', chatBericht);                            //een variable eensocket stuurt berichten naar verschillende klanten
         }
     });
-    socket.on('gamedata', function (data) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
-        console.log('Game data ontvangen: ' + data);     //in command line verschijn "chat from socket .naam. : .bericht."
-
+    socket.on('gamedata', function (data) {                           // als we van de socket een 'gamedata' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
+        console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     //in command line verschijn "chat from socket .naam. : .bericht."
+        gamedata[data.player.number - 1] = data.keuze;
+        var winner = determineWinner(gamedata[0], gamedata[1]);
+        emitToAll('gamedata', winner);
+        console.log('Winner: ' + (winner ? 'Speler 1' : 'Speler 2'));
     });
 });
 
 httpServer.listen(3000, function () {                                             //je kiest de poort 3000
     console.log('listening on *:3000');                                     //in command line verschijn string 'listening on *:3000'
 });
+
+
+function emitToAll(messageType, message) {
+    for (var i = 0; i < sockets.length; i++) {
+        sockets[i].emit(messageType, message);
+    }
+}
+
+function determineWinner(choice1, choice2) {
+    if (choice1 == choice2) {
+        return undefined;
+    }
+    switch (choice1) {
+        case 1:
+            return choice2 == 3 || choice2 == 4;
+        case 2:
+            return choice2 == 1 || choice2 == 5;
+        case 3:
+            return choice2 == 2 || choice2 == 4;
+        case 4:
+            return choice2 == 2 || choice2 == 5;
+        case 5:
+            return choice2 == 1 || choice2 == 3;
+        default:
+        {
+            console.log(choice1 + 'is an invalid choice!');
+            emitToAll('gamedata', choice1 + 'is an invalid choice!');
+            return undefined;
+        }
+    }
+}
