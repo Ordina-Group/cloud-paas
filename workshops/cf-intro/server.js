@@ -9,8 +9,11 @@ var io = socketioAPI(httpServer); // creeer een nieuwe socket IO object voor dez
 app.use(expressAPI.static('public'));                      // verwijzen waar publieke bestanden staan - zijn voor iedereen toegankelijk
 
 var sockets = [];                                       // hier staat de client informatie in (IP, poort, socket, etc)
-var players = [];
-var gamedata = [];
+var gamedata = {
+    players: [],
+    keuzes: [],
+    winner: undefined
+};
 var chatMessages = [];
 
 io.on('connection', function (socket) {                 // dat activeert wanneer klant verbonden wordt. io wilt input/output zeggen
@@ -21,11 +24,10 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
     socket.on('play', function (name) { // een speler duwt op 'PLAY'
         console.log('Player ' + name + ' wants to play!');
-        emitToAll('play','Player ' + name + ' wants to play!');
-        if (players.length < 2) { // er mogen maximum 2 spelers zijn
-            players.push(name); // voeg de speler zijn naam toe aan de lijst van spelers
+        if (gamedata.players.length < 2) { // er mogen maximum 2 spelers zijn
+            gamedata.players.push(name); // voeg de speler zijn naam toe aan de lijst van spelers
             for (var i = 0; i < sockets.length; i++) { // stuur naar alle connecties een bericht dat een speler is toegevoegd
-                if (players.length == 1) { // speler 1 is net toegevoegd
+                if (gamedata.players.length == 1) { // speler 1 is net toegevoegd
                     sockets[i].emit('play', {
                         name: name,
                         number: 1,
@@ -52,11 +54,12 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
     socket.on('gamedata', function (data) {                           // als we van de socket een 'gamedata' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
         console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     // in command line verschijn "chat from socket .naam. : .bericht."
-        gamedata[data.player.number - 1] = data.keuze;  // wordt opgeslagen in gamedata -> welke speler keuze heeft gemaakt(schaar, steen,...) en -1 -> omdat array met 0 begint
-        var winner = determineWinner(gamedata[0], gamedata[1]);
-        chatMessages.push(data);
-        emitToAll('gamedata', winner);
-        console.log('Winner: ' + (winner ? 'Speler 1' : 'Speler 2'));
+        gamedata.keuzes[data.player.number - 1] = data.keuze;  // wordt opgeslagen in gamedata -> welke speler keuze heeft gemaakt(schaar, steen,...) en -1 -> omdat array met 0 begint
+        if (gamedata.keuzes[0] != undefined && gamedata.keuzes[1] != undefined) {
+            gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]) ? 0 : 1;
+            emitToAll('gamedata', gamedata);
+            console.log('Winner: ' + (gamedata.winner ? 'Speler 1' : 'Speler 2'));
+        }
     });
 });
 
@@ -90,7 +93,8 @@ function determineWinner(choice1, choice2) {
         {
             console.log(choice1 + 'is an invalid choice!');
             for (var i = 0; i < sockets.length; i++) {
-            sockets[i].emit('gamedata', choice1 + 'is an invalid choice!');}
+                sockets[i].emit('gamedata', choice1 + 'is an invalid choice!');
+            }
             chatMessages.push(choice1 + 'is an invalid choice!');
             emitToAll('gamedata', choice1 + 'is an invalid choice!');
             return undefined;
