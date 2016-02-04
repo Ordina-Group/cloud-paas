@@ -10,17 +10,26 @@ $('#playFormulier').submit(function () {                // als submit geactiveer
     var naamVeld = $('#naam');
     socket.emit('play', naamVeld.val());              // stuurt berichten naar de server
     naamVeld.hide();
-    return false;
+    return false;// <-------------------------------- ???????????????
 });
+
+
+socket.on(gamedata, function(data) {
+    var chatPanel = $('gesprek');
+    var chatMessages = $('messages');
+    chatMessages.append($('<li>').text(data));
+});
+
+
 socket.on('chat', function (data) {                  // we krijgen een chatbericht van de server --> {}
     var chatPanel = $('.gesprek');
     var chatMessages = $('#messages');
     chatMessages.append($('<li>').text(getCurrentTime() + ': ' + data));     // berichten zullen onder elkaar geplaatst worden door <li>
     chatPanel.scrollTop(chatMessages.height());// automatisch naar beneden scrollen
 });
-socket.on('play', function (data) {                  // we krijgen een chatbericht van de server --> {}
+socket.on('play', function (data) {                                         // we krijgen een chatbericht van de server --> {}
     console.log('Player ' + data.number + ' [' + data.name + '] wil spelen! HOERA!');
-    if (data.self) {
+    if (data.self) {                                                         // self wilt zeggen dat men zijn eigen data terugkrijgt
         player = data; // de huidige speler is net toegevoegd
     }
     if (data.number == 2) {
@@ -51,14 +60,45 @@ function mySpock() {
 }
 
 function getCurrentTime() {
-    var date = new Date();
+    var date = new Date();                                                           // met function kun je altijd gebruiken door naam te typen
     return date.getHours() + ':' + date.getMinutes();
 }
-
+                                                                                        // timestamps
 function verstuurKeuzeNaarServer(keuze) {
-    socket.emit('gamedata', {
+    socket.emit('gamedata', {                             // hier wordt keuze opgeslagen die de player gekozen heeft. wordt naar server gestuurd
         player: player,
         keuze: keuze
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

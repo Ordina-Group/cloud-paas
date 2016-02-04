@@ -61,7 +61,8 @@ button:active {
 .list-group-item.rand:hover {
     background-color: darkcyan;
     color: white;
-    transition: all 0.3s ease 0s;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 .list-group-item.rand:active {
     color: #999999;
@@ -81,11 +82,6 @@ button:active {
     color: red;
     border: 2px inset red;
 }
-
-
-
-
-
 
 
 
@@ -131,10 +127,59 @@ button:active {
     border: 2px solid darkcyan;
 }
 
+
 .witvierkant {
     height: 280px;
     width: 350px;
 }
+
+.witvierkant2 {
+    height: 280px;
+    width: 350px;
+}
+
+
+
+
+.vs {
+    font-size: 80px;
+    font-family: sans-serif;
+    color: white;
+
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    76% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

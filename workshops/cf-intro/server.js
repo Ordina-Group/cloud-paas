@@ -21,6 +21,7 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
     socket.on('play', function (name) { // een speler duwt op 'PLAY'
         console.log('Player ' + name + ' wants to play!');
+        emitToAll('play','Player ' + name + ' wants to play!');
         if (players.length < 2) { // er mogen maximum 2 spelers zijn
             players.push(name); // voeg de speler zijn naam toe aan de lijst van spelers
             for (var i = 0; i < sockets.length; i++) { // stuur naar alle connecties een bericht dat een speler is toegevoegd
@@ -44,15 +45,16 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
     socket.on('chat', function (chatBericht) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
         console.log('Chat from socket ' + socket + ': ' + chatBericht);     //in command line verschijn "chat from socket .naam. : .bericht."
-        chatMessages.push(chatBericht);
+        chatMessages.push(chatBericht);                                     // berichten worden opgeslagen in de variable chatMessage, push wilt zeggen zetten
         for (var i = 0; i < sockets.length; i++) {
             sockets[i].emit('chat', chatBericht);                            //een variable eensocket stuurt berichten naar verschillende klanten
         }
     });
     socket.on('gamedata', function (data) {                           // als we van de socket een 'gamedata' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
-        console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     //in command line verschijn "chat from socket .naam. : .bericht."
-        gamedata[data.player.number - 1] = data.keuze;
+        console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     // in command line verschijn "chat from socket .naam. : .bericht."
+        gamedata[data.player.number - 1] = data.keuze;  // wordt opgeslagen in gamedata -> welke speler keuze heeft gemaakt(schaar, steen,...) en -1 -> omdat array met 0 begint
         var winner = determineWinner(gamedata[0], gamedata[1]);
+        chatMessages.push(data);
         emitToAll('gamedata', winner);
         console.log('Winner: ' + (winner ? 'Speler 1' : 'Speler 2'));
     });
@@ -71,7 +73,7 @@ function emitToAll(messageType, message) {
 
 function determineWinner(choice1, choice2) {
     if (choice1 == choice2) {
-        return undefined;
+        return undefined;                                   //gelijk
     }
     switch (choice1) {
         case 1:
@@ -87,8 +89,24 @@ function determineWinner(choice1, choice2) {
         default:
         {
             console.log(choice1 + 'is an invalid choice!');
+            for (var i = 0; i < sockets.length; i++) {
+            sockets[i].emit('gamedata', choice1 + 'is an invalid choice!');}
+            chatMessages.push(choice1 + 'is an invalid choice!');
             emitToAll('gamedata', choice1 + 'is an invalid choice!');
             return undefined;
+
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

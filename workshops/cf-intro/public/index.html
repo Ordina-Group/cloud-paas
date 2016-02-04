@@ -20,7 +20,7 @@
 <script>
     $(document).ready(function(){
         $("#playButton").click(function(){
-            $("#bovensolid2").text("game begin!");
+            $("#bovensolid2").text('game begin!');
         });
     });
 </script>
@@ -30,11 +30,11 @@
 <h1>Game</h1>
 
 <div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-6" id="color">Speler 1</div>
-    <div class="col-md-5 col-sm-5 col-xs-5 color2" id="bovensolid2"></div>
+    <div class="col-md-5 col-sm-5 col-xs-5" id="color">Speler 1</div>
+    <div class="col-md-6 col-sm-6 col-xs-6 color2" id="bovensolid2"></div>
 </div>
 <div class="row">
-    <div class="col-md-5 col-sm-5 col-xs-5 solid">
+    <div class="col-md-4 col-sm-4 col-xs-4 solid">
         <div class="list-group">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <button type="button" onclick="mySteen()" id="mySteen" class="list-group-item rand">steen</button>
@@ -45,9 +45,21 @@
             </div>
         </div>
     </div>
-    <div class="col-md-7 col-sm-7 col-xs-7">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <div class="col-md-12 col-sm-12 col-xs-12" id="solid2">
-            <img id="myImg" class="witvierkant" src="witte_vierkant.png">
+            <div class="row margin">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-5 col-sm-5 col-xs-5">
+                      <img id="myImg" class="witvierkant" src="witte_vierkant.png">
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <span class="vs">vs</span>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-5">
+                        <img id="myImg" class="witvierkant2" src="witte_vierkant.png">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -88,23 +100,191 @@
         </div>
     </div>
     <div class="col-md-1 col-sm-1 col-xs-1">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">ik snap het niet</button>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <iframe width="420" height="315" src="https://www.youtube.com/embed/Kov2G0GouBw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Ik snap het niet</button>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div align="right"><button type="button" class="glyphicon glyphicon-remove" data-dismiss="modal"></button></div>
+                        <div align="center"><h3 class="mmodal-title">VIDEO: kijk dit filmpje</h3></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <div align="center"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Kov2G0GouBw?rel=0&amp;showinfo=0"></iframe></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div align="center"><p>veel plezier</p></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
     <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script src="client.js"></script>
-</div>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous">
 </script>
 </body>
 </html>
+
+
+
+client
+
+    socket.on('play', function (data) {                                         // we krijgen een chatbericht van de server --> {}
+    console.log('Player ' + data.number + ' [' + data.name + '] wil spelen! HOERA!');
+    chatMessages.append($('<li>').text('Player ' + data.number + ' [' + data.name + '] wil spelen! HOERA!'));
+    if (data.self) {                                                         // self wilt zeggen dat men zijn eigen data terugkrijgt
+    player = data;          // de huidige speler is net toegevoegd
+    }
+    if (data.number == 2) {
+    console.log('LET THE GAMES BEGIN !!!');
+    var chatMessages = $('#messages');
+    chatMessages.append($('<li>').text('LET THE GAMES BEGIN !!!!'));
+    $('#playButton').hide();                        //hide() wilt zeggen verbergen
+    }
+    });
+
+
+
+
+server
+
+    socket.on('play', function (name) { // een speler duwt op 'PLAY'
+    console.log('Player ' + name + ' wants to play!');
+    chatMessages.push(name);
+    for (var i = 0; i < sockets.length; i++) {
+    sockets[i].emit('play', 'Player ' + name + ' wants to play!');
+
+    if (players.length < 2) { // er mogen maximum 2 spelers zijn
+    players.push(name); // voeg de speler zijn naam toe aan de lijst van spelers
+    for (var i = 0; i < sockets.length; i++) { // stuur naar alle connecties een bericht dat een speler is toegevoegd
+    if (players.length == 1) { // speler 1 is net toegevoegd
+    sockets[i].emit('play', {
+    name: name,
+    number: 1,
+    self: sockets[i] == socket
+    });
+    } else { // speler 2 is net toegevoegd
+    sockets[i].emit('play', {
+    name: name,
+    number: 2,
+    self: sockets[i] == socket
+    console.log('there are 2 players
+    sockets[i].emit('play')
+    });
+    }
+    }
+    } else {
+    console.log('Player ' + name + ' cannot play because there are already 2 players!');
+    chatMessages.push(name);
+    for (var i = 0; i < sockets.length; i++) {
+    sockets[i].emit('play', 'Player ' + name + ' cannot play because there are already 2 players!');
+    }
+    }
+    });
+    socket.on('chat', function (chatBericht) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
+    console.log('Chat from socket ' + socket + ': ' + chatBericht);     //in command line verschijn "chat from socket .naam. : .bericht."
+    chatMessages.push(chatBericht);                                     // berichten worden opgeslagen in de variable chatMessage, push wilt zeggen zetten
+    for (var i = 0; i < sockets.length; i++) {
+    sockets[i].emit('chat', chatBericht);                            //een variable eensocket stuurt berichten naar verschillende klanten
+    }
+    });
+    socket.on('gamedata', function (data) {                           // als we van de socket een 'gamedata' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
+    console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     // in command line verschijn "chat from socket .naam. : .bericht."
+    gamedata[data.player.number - 1] = data.keuze;  // wordt opgeslagen in gamedata -> welke speler keuze heeft gemaakt(schaar, steen,...) en -1 -> omdat array met 0 begint
+    var winner = determineWinner(gamedata[0], gamedata[1]);
+    emitToAll('gamedata', winner);
+    console.log('Winner: ' + (winner ? 'Speler 1' : 'Speler 2'));
+    });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
