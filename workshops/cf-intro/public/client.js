@@ -1,12 +1,5 @@
 var socket = io();
 var player = {};
-/*$('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
-    var chatVeld = $('#chatBericht');
-
-    socket.emit('chat', chatVeld.val());                // stuurt berichten naar de server
-    chatVeld.val('');                                   // maakt het chatveld leeg
-    return false;       // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
-});*/
 
 
 $('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
@@ -15,7 +8,10 @@ $('#chatFormulier').submit(function () {                // als submit geactiveer
         console.log('wordt niet gestuurd!');
         return false;                                   //moet blijven staande paginas's
     }else {
-        socket.emit('chat', chatVeld.val());             // stuurt berichten naar de server
+        socket.emit('chat', {
+            chatBericht: chatVeld.val(),             // stuurt berichten naar de server
+            naam: $('#naam').val()
+        });
         chatVeld.val('');                                // maakt het chatveld leeg, gaat het vanzelf niet weg
         return false;                               // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
     }
@@ -46,6 +42,10 @@ socket.on('netVerbonden', function(data){
     if(data.self) {
         $('#chatBericht').removeAttr("disabled");
         $('#send').removeAttr("disabled");
+
+        if(data.players.length < 2){
+            $('#playButton').show();
+        }
     }
 });
 
@@ -70,6 +70,16 @@ socket.on('play', function (data) {                                         // w
         voegTekstToeAanChatBox('LET THE GAMES BEGIN!');
         $('#playButton').hide();                                         //hide() wilt zeggen verbergen
     }
+
+    if (data.number == 1) {
+        $('#img1').attr('src', '/images/witte_vierkant.png');
+        $('#img2').attr('src', '/images/witte_vierkant.png');
+
+        $('#speler2').text('');
+    }
+
+    $('#speler'+ data.number).text(data.name);
+
 });
 
 keuzes = ["/images/steen.jpg", "/images/papier.jpg",
@@ -86,21 +96,41 @@ function toonKeuze2(data) {
 }
 
 socket.on('gamedata', function (data) {
-    var text;
-    if(data.winner){
-        text = data.players[data.winner] + ' is gewonnen!';
-    }else{
-        text = 'gelijkspel!';
+    if (data.keuzes[0] != undefined && data.keuzes[1] != undefined) {
+        var text;
+        if (data.winner != undefined){
+            text = data.players[data.winner] + ' is gewonnen!';
+        } else {
+            text = 'gelijkspel!';
+        }
+
+        var winnaarText = $('#bovensolid2');
+        winnaarText.text( text );
+
+        toonKeuze1(data);
+        toonKeuze2(data);
+        voegTekstToeAanChatBox(text);
+
+        if ($('#naam').val().length > 0) {
+            $('#playButton').show();
+        }
+    } else {
+        for (var i = 0; i < 2; i++) {
+            if (data.keuzes[i] != undefined) {                          //als de keuzes ingevuld is en vraagteken tonen en anders blijft het wit
+                $('#img' + (i+1)).attr('src', '/images/vraagteken.jpg');
+            } else {
+                $('#img' + (i+1)).attr('src', '/images/witte_vierkant.png');
+            }
+        }
+
+        for (var i = 0; i < 2; i++) {
+            if (data.players[i] != undefined) {
+                $('#speler'+ (i+1)).text(data.players[i]);
+            } else { // een speler heeft mogelijk het spel verlaten dus moeten we de naamlabels mogenlijk ook terug leeg maken
+                $('#speler'+ (i+1)).text('');
+            }
+        }
     }
-
-    var winnaarText = $('#bovensolid2');
-    winnaarText.text( text );
-
-    toonKeuze1(data);
-    toonKeuze2(data);
-    voegTekstToeAanChatBox(text);
-
-    $('#playButton').show();
 });
 
 function mySteen() {

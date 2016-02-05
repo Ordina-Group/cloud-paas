@@ -18,13 +18,33 @@ var chatMessages = [];                                  // hier worden berichten
 
 io.on('connection', function (socket) {                 // dat activeert wanneer klant verbonden wordt. io wilt input/output zeggen
     console.log('New connection: ' + socket);           // socket is een browser connectie met de server
-    sockets.push(socket);                               // in de array van sockets voegen we de nieuwe socket toe. push wilt zetten zeggen
+    sockets.push(socket);                              // in de array van sockets voegen we de nieuwe socket toe. push wilt zetten zeggen
+
+    socket.emit('gamedata', gamedata);
+
     socket.on('disconnect', function () {
         console.log('Socket ' + socket + ' disconnected!');                 // klant sluit de browser of gaat naar een andere website
+
+        if (socket.naam != undefined) {
+            var playerIndex = gamedata.players.indexOf(socket.naam);
+            if (playerIndex > -1) {
+                console.log('Player ' + socket.naam + ' disconnected');
+
+                gamedata.players.splice(playerIndex, 1);
+                gamedata.keuzes.splice(playerIndex, 1);
+
+                emitToAll('chat', 'Player ' + socket.naam + ' disconnected');       //om in de chatbox te tonen.
+                emitToAll('gamedata', gamedata);                    // om in client afbeelding en de naam onder de afbeelding te verwijderen
+            }
+        }
+
+        var index = sockets.indexOf(socket);                         // welke positie in de lijst
+        sockets.splice(index, 1);                                   // splice is het 1 element op die positie verwijderen
     });
 
     socket.on('naam', function(name){
         console.log('nieuwe bezoeker');
+        socket.naam = name;
         emitToAllIncludingSelf(socket, 'netVerbonden', 'nieuwe bezoeker: ' + name);
     });
 
@@ -51,21 +71,25 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
             console.log('Player ' + name + ' cannot play because there are already 2 players!'); // als er in de array players al 2 namen heeft. dan staat die text in de console
         }
     });
-    socket.on('chat', function (chatBericht) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
-        console.log('Chat from socket ' + socket + ': ' + chatBericht);     //in command line verschijn "chat from socket .naam. : .bericht."
-        chatMessages.push(chatBericht);                                     // berichten worden opgeslagen in de variable chatMessage, push wilt zeggen zetten
+    socket.on('chat', function (data) {                           // als we van de socket een 'chat' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
+        console.log('Chat from socket ' + socket + ': ' + data.chatBericht);     //in command line verschijn "chat from socket .naam. : .bericht."
+        chatMessages.push(data);                                     // berichten worden opgeslagen in de variable chatMessage, push wilt zeggen zetten
         for (var i = 0; i < sockets.length; i++) {
-            sockets[i].emit('chat', chatBericht);                            //een variable eensocket stuurt berichten naar verschillende klanten
+            sockets[i].emit('chat', data.naam + ' -> ' + data.chatBericht);                            //een variable eensocket stuurt berichten naar verschillende klanten
         }
     });
     socket.on('gamedata', function (data) {                           // als we van de socket een 'gamedata' bericht krijgen, dan wordt de onderstaande functie uitgevoerd
         console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     // in command line verschijn "chat from socket .naam. : .bericht."
         gamedata.keuzes[data.player.number - 1] = data.keuze; // wordt opgeslagen in gamedata -> welke speler keuze heeft gemaakt(schaar, steen,...) en -1 -> omdat array met 0 begint
+
         if (gamedata.keuzes[0] != undefined && gamedata.keuzes[1] != undefined) {           // keuzes mogen niet leeg zijn
             gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]);
-            emitToAll('gamedata', gamedata);
             console.log('Winner: ' + (gamedata.winner ? 'Speler 1' : 'Speler 2'));      // vraagteken wilt zeggen wie wint het
+        }
 
+        emitToAll('gamedata', gamedata);
+
+        if (gamedata.keuzes[0] != undefined && gamedata.keuzes[1] != undefined) {           // keuzes mogen niet leeg zijn
             console.log('reset game');
             gamedata = {                                        // gamedata is een dataobject ---> hij heeft 3 objecten namelijk players, keuzes, winner
                 players: [],
@@ -73,6 +97,7 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
                 winner: undefined                                   // heeft nog geen waarde
             };
         }
+
     });
 });
 
@@ -91,12 +116,15 @@ function emitToAllIncludingSelf(socket, messageType, message) {            //je 
     for (var i = 0; i < sockets.length; i++) {
         sockets[i].emit(messageType, {
             message: message,
+            players: gamedata.players,
             self: sockets[i] == socket
         });
     }
 }
 
 function determineWinner(choice1, choice2) {
+    console.log(choice1 + ' ' + choice2);
+
     if (choice1 == choice2) {                               //gelijk
         return undefined;
     }

@@ -12,7 +12,7 @@
     padding-bottom: 290px;
     border: 6px outset darkslategrey ;
     background-color: #002b36;
-    height: 20px;
+    height: 360px;
 }
 #solid3 {
     margin-top: 10px;
@@ -130,10 +130,6 @@ button:active {
     width: 350px;
 }
 
-.witvierkant2 {
-    height: 280px;
-    width: 350px;
-}
 .vs {
     font-size: 80px;
     font-family: sans-serif;
