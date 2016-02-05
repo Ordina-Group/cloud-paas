@@ -2,60 +2,68 @@ var socket = io();
 var player = {};
 $('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
     var chatVeld = $('#chatBericht');
-    socket.emit('chat', chatVeld.val());       // stuurt berichten naar de server
-    chatVeld.val(''); // maakt het chatveld leeg
-    return false;
+
+    socket.emit('chat', chatVeld.val());                // stuurt berichten naar de server
+    chatVeld.val('');                                   // maakt het chatveld leeg
+    return false;       // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
 });
 $('#playFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
-    var naamVeld = $('#naam');
+    var naamVeld = $('#naam');                        // je moet dit doen want het is gemakkelijker
     socket.emit('play', naamVeld.val());              // stuurt berichten naar de server
-    naamVeld.hide();
-    return false;// dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
+    naamVeld.hide();                                  // naamVeld gaat weg --> je kan niet opnieuw je naam intypen
+    return false;     // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
 });
-
-
-socket.on('play', function(data) {
-    var chatPanel = $('gesprek');
-    var chatMessages = $('messages');
-    chatMessages.append($('<li>').text(data));
-});
-
 
 socket.on('chat', function (data) {                  // we krijgen een chatbericht van de server --> {}
+    voegTekstToeAanChatBox(data);
     var chatPanel = $('.gesprek');
-    var chatMessages = $('#messages');
-    chatMessages.append($('<li>').text(getCurrentTime() + ': ' + data));     // berichten zullen onder elkaar geplaatst worden door <li>
-    chatPanel.scrollTop(chatMessages.height());// automatisch naar beneden scrollen
+    chatPanel.scrollTop($('#messages').height());       // automatisch naar beneden scrollen
 });
 socket.on('play', function (data) {                                         // we krijgen een chatbericht van de server --> {}
-    console.log('Player ' + data.number + ' [' + data.name + '] wil spelen! HOERA!');
+    voegTekstToeAanChatBox(data.name + ' is speler ' + data.number + '!');      // je gaat tussen de () in de chatbox zien
     if (data.self) {                                                         // self wilt zeggen dat men zijn eigen data terugkrijgt
-        player = data; // de huidige speler is net toegevoegd
+        player = data;                                                  // de huidige speler is net toegevoegd,    ????????????????hij kan zijn eigen naam en nummer zien?????????
     }
     if (data.number == 2) {
-        console.log('LET THE GAMES BEGIN !!!');
-        $('#playButton').hide();                        //hide() wilt zeggen verbergen
+        voegTekstToeAanChatBox('LET THE GAMES BEGIN!');
+        $('#playButton').hide();                                         //hide() wilt zeggen verbergen
     }
+});
+
+keuzes = ["steen.jpg", "http://2.bp.blogspot.com/_uKYhTYLmzIc/TAzeP4oohcI/AAAAAAAAAMg/OtMmLKGVcek/s1600/blad-papier-t10263.jpg",
+    "http://publicdomainvectors.org/photos/nicubunu_Scissors.png", "hagedis.gif", "http://cdn.iphonehacks.com/wp-content/uploads/2015/07/Spock-emoji.jpg"];
+
+function toonKeuze1(data) {
+    voegTekstToeAanChatBox(data.players[0] + ' koos [' + data.keuzes[0] + ']');
+    $('#img1').src = keuzes[data.keuzes[0] - 1];
+}
+
+function toonKeuze2(data) {
+    voegTekstToeAanChatBox(data.players[1] + ' koos [' + data.keuzes[1] + ']');
+    $('#img2').src = keuzes[data.keuzes[1] - 1];
+}
+
+socket.on('gamedata', function (data) {
+    var winnaarText = $('#bovensolid2');
+    winnaarText.text(data.players[data.winner] + ' is gewonnen!');
+    toonKeuze1(data);
+    toonKeuze2(data);
+    voegTekstToeAanChatBox(data.players[data.winner] + ' is gewonnen!');
 });
 
 function mySteen() {
-    document.getElementById("myImg").src = "steen.jpg";
     verstuurKeuzeNaarServer(1);
 }
 function myPapier() {
-    document.getElementById("myImg").src = "http://2.bp.blogspot.com/_uKYhTYLmzIc/TAzeP4oohcI/AAAAAAAAAMg/OtMmLKGVcek/s1600/blad-papier-t10263.jpg";
     verstuurKeuzeNaarServer(2);
 }
 function mySchaar() {
-    document.getElementById("myImg").src = "http://publicdomainvectors.org/photos/nicubunu_Scissors.png";
     verstuurKeuzeNaarServer(3);
 }
 function myHagedis() {
-    document.getElementById("myImg").src = "hagedis.gif";
     verstuurKeuzeNaarServer(4);
 }
 function mySpock() {
-    document.getElementById("myImg").src = "http://cdn.iphonehacks.com/wp-content/uploads/2015/07/Spock-emoji.jpg";
     verstuurKeuzeNaarServer(5);
 }
 
@@ -63,42 +71,17 @@ function getCurrentTime() {
     var date = new Date();                                                           // met function kun je altijd gebruiken door naam te typen
     return date.getHours() + ':' + date.getMinutes();
 }
-                                                                                        // timestamps
+
+function voegTekstToeAanChatBox(text) {                                      // ??????????tussen () mag je zelf naam kiezen??????????????
+    var chatMessages = $('#messages');
+    chatMessages.append($('<li>').text(getCurrentTime() + ': ' + text));     // berichten zullen onder elkaar geplaatst worden door <li>
+}
+                                                                                // timestamps
 function verstuurKeuzeNaarServer(keuze) {
     socket.emit('gamedata', {                             // hier wordt keuze opgeslagen die de player gekozen heeft. wordt naar server gestuurd
         player: player,
         keuze: keuze
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
