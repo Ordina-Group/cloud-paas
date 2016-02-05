@@ -1,28 +1,66 @@
 var socket = io();
 var player = {};
-$('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
+/*$('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
     var chatVeld = $('#chatBericht');
 
     socket.emit('chat', chatVeld.val());                // stuurt berichten naar de server
     chatVeld.val('');                                   // maakt het chatveld leeg
     return false;       // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
+});*/
+
+
+$('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
+    var chatVeld = $('#chatBericht');
+    if(chatVeld.val().length < 1){
+        console.log('wordt niet gestuurd!');
+        return false;                                   //moet blijven staande paginas's
+    }else {
+        socket.emit('chat', chatVeld.val());             // stuurt berichten naar de server
+        chatVeld.val('');                                // maakt het chatveld leeg, gaat het vanzelf niet weg
+        return false;                               // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
+    }
+
 });
-$('#playFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
+
+$('#naamFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
     var naamVeld = $('#naam');                        // je moet dit doen want het is gemakkelijker
-    socket.emit('play', naamVeld.val());              // stuurt berichten naar de server
+    socket.emit('naam', naamVeld.val());              // stuurt berichten naar de server
     naamVeld.hide();                                  // naamVeld gaat weg --> je kan niet opnieuw je naam intypen
+    var label = $('#naamVanSpeler');
+    label.text(naamVeld.val());
+    label.show();
+    $('#goKnop').hide();
     return false;     // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
 });
 
+$('#playFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
+    var naamVeld = $('#naam');                        // je moet dit doen want het is gemakkelijker
+    socket.emit('play', naamVeld.val());              // stuurt berichten naar de server
+    return false;     // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
+});
+
+
+
+socket.on('netVerbonden', function(data){
+    voegTekstToeAanChatBox(data);
+});
+
+
 socket.on('chat', function (data) {                  // we krijgen een chatbericht van de server --> {}
     voegTekstToeAanChatBox(data);
-    var chatPanel = $('.gesprek');
-    chatPanel.scrollTop($('#messages').height());       // automatisch naar beneden scrollen
+
 });
 socket.on('play', function (data) {                                         // we krijgen een chatbericht van de server --> {}
     voegTekstToeAanChatBox(data.name + ' is speler ' + data.number + '!');      // je gaat tussen de () in de chatbox zien
     if (data.self) {                                                         // self wilt zeggen dat men zijn eigen data terugkrijgt
         player = data;                                                  // de huidige speler is net toegevoegd,    ????????????????hij kan zijn eigen naam en nummer zien?????????
+        $('#playButton').hide();
+
+        $('#mySteen').removeAttr("disabled");
+        $('#myPapier').removeAttr("disabled");
+        $('#mySchaar').removeAttr("disabled");
+        $('#myHagedis').removeAttr("disabled");
+        $('#mySpock').removeAttr("disabled");
     }
     if (data.number == 2) {
         voegTekstToeAanChatBox('LET THE GAMES BEGIN!');
@@ -72,9 +110,11 @@ function getCurrentTime() {
     return date.getHours() + ':' + date.getMinutes();
 }
 
-function voegTekstToeAanChatBox(text) {                                      // ??????????tussen () mag je zelf naam kiezen??????????????
+function voegTekstToeAanChatBox(text) {                                      // tussen () mag je zelf naam kiezen
     var chatMessages = $('#messages');
     chatMessages.append($('<li>').text(getCurrentTime() + ': ' + text));     // berichten zullen onder elkaar geplaatst worden door <li>
+    var chatPanel = $('.gesprek');
+    chatPanel.scrollTop($('#messages').height());       // automatisch naar beneden scrollen
 }
                                                                                 // timestamps
 function verstuurKeuzeNaarServer(keuze) {

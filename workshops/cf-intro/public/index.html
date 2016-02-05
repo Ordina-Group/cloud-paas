@@ -19,18 +19,30 @@
 <h1>Game</h1>
 
 <div class="row">
-    <div class="col-md-5 col-sm-5 col-xs-5" id="color">Speler 1</div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+        <form id="naamFormulier">
+            <input type="text" id="naam" placeholder="Name">
+            <button type="submit" id="goKnop">GO!</button>
+        </form>
+        <span class="color" id="naamVanSpeler" style="display:none">&nbsp;</span>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+        <form id="playFormulier">
+            <button type="submit" id="playButton">PLAY</button>
+        </form>
+
+    </div>
     <div class="col-md-6 col-sm-6 col-xs-6 color2" id="bovensolid2"></div>
 </div>
 <div class="row">
     <div class="col-md-4 col-sm-4 col-xs-4 solid">
         <div class="list-group">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <button type="button" onclick="mySteen()" id="mySteen" class="list-group-item rand">steen</button>
-                <button type="button" onclick="myPapier()" id="myPapier" class="list-group-item rand">papier</button>
-                <button type="button" onclick="mySchaar()" id="mySchaar" class="list-group-item rand">schaar</button>
-                <button type="button" onclick="myHagedis()" id="myHagedis" class="list-group-item rand">hagedis</button>
-                <button type="button" onclick="mySpock()" id="mySpock" class="list-group-item rand">spock</button>
+                <button type="button" onclick="mySteen()" id="mySteen" class="list-group-item rand" disabled>steen</button>
+                <button type="button" onclick="myPapier()" id="myPapier" class="list-group-item rand" disabled>papier</button>
+                <button type="button" onclick="mySchaar()" id="mySchaar" class="list-group-item rand" disabled>schaar</button>
+                <button type="button" onclick="myHagedis()" id="myHagedis" class="list-group-item rand" disabled>hagedis</button>
+                <button type="button" onclick="mySpock()" id="mySpock" class="list-group-item rand" disabled>spock</button>
             </div>
         </div>
     </div>
@@ -57,7 +69,7 @@
     <div class="col-md-6 col-sm-6 col-xs-6" id="color3">CHAT</div>
 </div>
 <div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-6" id="solid3">
+    <div class="col-md-10 col-sm-10 col-xs-10" id="solid3">
         <div class="col-md-10 col-sm-10 col-xs-10">
             <div class="col-md-12">
                 <div class="gesprek"><ul id="messages"></ul></div>
@@ -67,27 +79,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-4">
-        <div class="col-md-12 col-sm-12 col-xs-12" id="solid4">
-            <div class="col-md-12">&nbsp;</div>
-            <div class="col-md-12">&nbsp;</div>
-            <div class="col-md-12">&nbsp;</div>
-            <div class="row">
-                <form id="playFormulier">
-                    <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="naam" id="name">NAME</label>
-                            <input type="text" class="form-control" id="naam" placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-default" id="playButton">PLAY</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
     <div class="col-md-1 col-sm-1 col-xs-1">
         <p>&nbsp;</p>
         <p>&nbsp;</p>
@@ -124,16 +116,6 @@
 </html>
 
 
-$('#chatFormulier').submit(function () {                // als submit geactiveerd word dan wordt tussen {} uitgevoerd
-var chatVeld = $('#chatBericht');
-if(chatVeld.val().length < 1){
-    console.log('wordt niet gestuurd!')
-}else {
-    socket.emit('chat', chatVeld.val());             // stuurt berichten naar de server
-    chatVeld.val('');                                // maakt het chatveld leeg                                ???????????gaat het vanzelf niet weg????????????????
-    return false;                               // dit moet je bijtypen als je submit gebruikt, om aan te duiden dat het formulier niet opnieuw moet worden opgestuurd.
-});
-}
 
 
 

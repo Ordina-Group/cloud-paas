@@ -30,7 +30,7 @@
     background-color: #ff2c2d;
     height: 20px;
 }
-#color {
+.color {
     color: aqua;
     font-size: 20px;
     margin-top: -5px;
@@ -67,21 +67,18 @@ button:active {
 .list-group-item.rand:active {
     color: #999999;
 }
+
+.list-group-item.rand:disabled{
+    background-color: lightgray;
+    color: black;
+}
+
+
 #name {
     font-size: 20px;
     color: white;
 }
-#playButton {
-    position: relative;
-    height: 50px;
-}
-#playButton:hover {
-    border: 1px solid red;
-}
-#playButton:active {
-    color: red;
-    border: 2px inset red;
-}
+
 
 
 

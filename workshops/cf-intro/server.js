@@ -22,6 +22,12 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     socket.on('disconnect', function () {
         console.log('Socket ' + socket + ' disconnected!');                 // klant sluit de browser of gaat naar een andere website
     });
+
+    socket.on('naam', function(name){
+        console.log('nieuwe bezoeker');
+        emitToAll('netVerbonden', 'nieuwe bezoeker: ' + name);
+    });
+
     socket.on('play', function (name) {             // socket.on --> server wacht tot speler op een 'PLAY' drukt
         console.log('Player ' + name + ' wants to play!');
         if (gamedata.players.length < 2) {              // er mogen maximum 2 spelers zijn
