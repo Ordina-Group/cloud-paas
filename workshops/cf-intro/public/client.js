@@ -43,6 +43,11 @@ $('#playFormulier').submit(function () {                // als submit geactiveer
 
 socket.on('netVerbonden', function(data){
     voegTekstToeAanChatBox(data);
+    if(data.self) {
+        $('#chatBericht').removeAttr("disabled");
+        $('#send').removeAttr("disabled");
+
+    }
 });
 
 
