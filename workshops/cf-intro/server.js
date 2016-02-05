@@ -25,7 +25,7 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
 
     socket.on('naam', function(name){
         console.log('nieuwe bezoeker');
-        emitToAll('netVerbonden', 'nieuwe bezoeker: ' + name);
+        emitToAllIncludingSelf(socket, 'netVerbonden', 'nieuwe bezoeker: ' + name);
     });
 
     socket.on('play', function (name) {             // socket.on --> server wacht tot speler op een 'PLAY' drukt
@@ -62,7 +62,7 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
         console.log('Game data ontvangen van speler ' + data.player.number + ': ' + data.keuze);     // in command line verschijn "chat from socket .naam. : .bericht."
         gamedata.keuzes[data.player.number - 1] = data.keuze; // wordt opgeslagen in gamedata -> welke speler keuze heeft gemaakt(schaar, steen,...) en -1 -> omdat array met 0 begint
         if (gamedata.keuzes[0] != undefined && gamedata.keuzes[1] != undefined) {           // keuzes mogen niet leeg zijn
-            gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]) ? 0 : 1;
+            gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]);
             emitToAll('gamedata', gamedata);
             console.log('Winner: ' + (gamedata.winner ? 'Speler 1' : 'Speler 2'));      // vraagteken wilt zeggen wie wint het
 
@@ -87,21 +87,30 @@ function emitToAll(messageType, message) {            //je kan nu altijd emitToA
     }
 }
 
+function emitToAllIncludingSelf(socket, messageType, message) {            //je kan nu altijd emitToAll gebruiken in plaats van sockets.emit() --> gemakkelijker
+    for (var i = 0; i < sockets.length; i++) {
+        sockets[i].emit(messageType, {
+            message: message,
+            self: sockets[i] == socket
+        });
+    }
+}
+
 function determineWinner(choice1, choice2) {
     if (choice1 == choice2) {                               //gelijk
         return undefined;
     }
     switch (choice1) {
         case 1:
-            return choice2 == 3 || choice2 == 4;
+            return (choice2 == 3 || choice2 == 4) ? 0 : 1;
         case 2:
-            return choice2 == 1 || choice2 == 5;
+            return (choice2 == 1 || choice2 == 5) ? 0 : 1;
         case 3:
-            return choice2 == 2 || choice2 == 4;
+            return (choice2 == 2 || choice2 == 4) ? 0 : 1;
         case 4:
-            return choice2 == 2 || choice2 == 5;
+            return (choice2 == 2 || choice2 == 5) ? 0 : 1;
         case 5:
-            return choice2 == 1 || choice2 == 3;
+            return (choice2 == 1 || choice2 == 3) ? 0 : 1;
         default:
         {
             console.log(choice1 + 'is an invalid choice!');

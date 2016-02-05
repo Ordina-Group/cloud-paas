@@ -42,11 +42,10 @@ $('#playFormulier').submit(function () {                // als submit geactiveer
 
 
 socket.on('netVerbonden', function(data){
-    voegTekstToeAanChatBox(data);
+    voegTekstToeAanChatBox(data.message);
     if(data.self) {
         $('#chatBericht').removeAttr("disabled");
         $('#send').removeAttr("disabled");
-
     }
 });
 
@@ -87,11 +86,19 @@ function toonKeuze2(data) {
 }
 
 socket.on('gamedata', function (data) {
+    var text;
+    if(data.winner){
+        text = data.players[data.winner] + ' is gewonnen!';
+    }else{
+        text = 'gelijkspel!';
+    }
+
     var winnaarText = $('#bovensolid2');
-    winnaarText.text(data.players[data.winner] + ' is gewonnen!');
+    winnaarText.text( text );
+
     toonKeuze1(data);
     toonKeuze2(data);
-    voegTekstToeAanChatBox(data.players[data.winner] + ' is gewonnen!');
+    voegTekstToeAanChatBox(text);
 
     $('#playButton').show();
 });
