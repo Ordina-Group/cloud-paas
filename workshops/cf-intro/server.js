@@ -12,7 +12,7 @@ var sockets = [];                                       // hier staat de client 
 var gamedata = {                                        // gamedata is een dataobject ---> hij heeft 3 objecten namelijk players, keuzes, winner
     players: [],
     keuzes: [],
-    winner: undefined
+    winner: undefined                                   // heeft nog geen waarde
 };
 var chatMessages = [];                                  // hier worden berichten opgeslagen
 
@@ -65,6 +65,13 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
             gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]) ? 0 : 1;
             emitToAll('gamedata', gamedata);
             console.log('Winner: ' + (gamedata.winner ? 'Speler 1' : 'Speler 2'));      // vraagteken wilt zeggen wie wint het
+
+            console.log('reset game');
+            gamedata = {                                        // gamedata is een dataobject ---> hij heeft 3 objecten namelijk players, keuzes, winner
+                players: [],
+                keuzes: [],
+                winner: undefined                                   // heeft nog geen waarde
+            };
         }
     });
 });

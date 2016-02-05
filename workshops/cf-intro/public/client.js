@@ -68,17 +68,17 @@ socket.on('play', function (data) {                                         // w
     }
 });
 
-keuzes = ["steen.jpg", "http://2.bp.blogspot.com/_uKYhTYLmzIc/TAzeP4oohcI/AAAAAAAAAMg/OtMmLKGVcek/s1600/blad-papier-t10263.jpg",
-    "http://publicdomainvectors.org/photos/nicubunu_Scissors.png", "hagedis.gif", "http://cdn.iphonehacks.com/wp-content/uploads/2015/07/Spock-emoji.jpg"];
+keuzes = ["/images/steen.jpg", "/images/papier.jpg",
+    "/images/schaar.png", "/images/hagedis.gif", "/images/spock.jpg"];
 
 function toonKeuze1(data) {
     voegTekstToeAanChatBox(data.players[0] + ' koos [' + data.keuzes[0] + ']');
-    $('#img1').src = keuzes[data.keuzes[0] - 1];
+    $('#img1').attr('src', keuzes[data.keuzes[0] - 1]);
 }
 
 function toonKeuze2(data) {
     voegTekstToeAanChatBox(data.players[1] + ' koos [' + data.keuzes[1] + ']');
-    $('#img2').src = keuzes[data.keuzes[1] - 1];
+    $('#img2').attr('src',keuzes[data.keuzes[1] - 1]);
 }
 
 socket.on('gamedata', function (data) {
@@ -87,6 +87,8 @@ socket.on('gamedata', function (data) {
     toonKeuze1(data);
     toonKeuze2(data);
     voegTekstToeAanChatBox(data.players[data.winner] + ' is gewonnen!');
+
+    $('#playButton').show();
 });
 
 function mySteen() {
@@ -122,6 +124,12 @@ function verstuurKeuzeNaarServer(keuze) {
         player: player,
         keuze: keuze
     });
+
+    $('#mySteen').attr("disabled", "disabled");
+    $('#myPapier').attr("disabled", "disabled");
+    $('#mySchaar').attr("disabled", "disabled");
+    $('#myHagedis').attr("disabled", "disabled");
+    $('#mySpock').attr("disabled", "disabled");
 }
 
 
