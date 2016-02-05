@@ -121,7 +121,7 @@ button:active {
     padding: 5px 10px;
 }
 #messages li:nth-child(odd) {
-    background: forestgreen;
+    background: seagreen;
 }
 .forbutton:active {
     border: 2px solid darkcyan;
@@ -137,33 +137,15 @@ button:active {
     height: 280px;
     width: 350px;
 }
-
-
-
-
 .vs {
     font-size: 80px;
     font-family: sans-serif;
     color: white;
-
-    animation: blink 1s infinite;
-}
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    75% {
-        opacity: 1;
-    }
-    76% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
 }
 
-
+#bovensolid2 {
+    text-align: center;
+}
 
 
 
