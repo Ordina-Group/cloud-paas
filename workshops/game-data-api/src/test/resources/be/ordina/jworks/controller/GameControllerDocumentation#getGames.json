@@ -1,0 +1,80 @@
+{
+  "data": [
+    {
+      "simple": [
+        {
+          "key": "key1",
+          "value": "value1"
+        }
+      ]
+    },
+    {
+      "list": [
+        {
+          "key": "list-key",
+          "values": [
+            {
+              "value": "list-value-1"
+            },
+            {
+              "value": "list-value-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sortset": [
+        {
+          "key": "sorted-set-key",
+          "values": [
+            {
+              "score": 2,
+              "value": "sorted-set-value-2"
+            },
+            {
+              "score": 3,
+              "value": 1
+            },
+            {
+              "score": 1,
+              "value": "sorted-set-value-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "hash": [
+        {
+          "key": "user",
+          "values": [
+            {
+              "field": "name",
+              "value": "alex"
+            },
+            {
+              "field": "password",
+              "value": "alex"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set": [
+        {
+          "key": "games",
+          "values": [
+            {
+              "value": "Zelda"
+            },
+            {
+              "value": "Unreal Tournament"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

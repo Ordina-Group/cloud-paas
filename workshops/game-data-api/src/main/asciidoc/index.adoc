@@ -1,0 +1,21 @@
+= Game Data API
+Dieter Hubau;
+:doctype: book
+:toc:
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+= API
+
+== Games Endpoint
+
+=== Contract
+include::{snippets}/get-games/curl-request.adoc[]
+
+=== Example Request
+include::{snippets}/get-games/http-request.adoc[]
+
+=== Example Response
+include::{snippets}/get-games/http-response.adoc[]
