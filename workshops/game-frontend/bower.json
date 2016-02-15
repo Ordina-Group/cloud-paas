@@ -1,0 +1,11 @@
+{
+  "name": "game-frontend",
+  "description": "The game frontend",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0"
+  }
+}
