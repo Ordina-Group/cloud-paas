@@ -1,8 +1,6 @@
 package be.ordina.jworks.controller;
 
 import be.ordina.jworks.GameDataApiApplication;
-import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
-import com.lordofthejars.nosqlunit.core.LoadStrategyEnum;
 import com.lordofthejars.nosqlunit.redis.RedisRule;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -27,7 +25,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
@@ -65,14 +62,9 @@ public class GameControllerDocumentation {
     }
 
     @Test
-    @UsingDataSet(loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
     public void getGames() throws Exception {
         mockMvc.perform(get("/games").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json("[\n" +
-                        "  \"Zelda\",\n" +
-                        "  \"Unreal Tournament\"\n" +
-                        "]"));
+                .andExpect(status().isOk());
     }
 
     @AfterClass
