@@ -15,9 +15,11 @@ var gamedata = {                                        // gamedata is een datao
     winner: undefined                                   // heeft nog geen waarde
 };
 var chatMessages = [];                                  // hier worden berichten opgeslagen
+var lobbyId;
 
 io.on('connection', function (socket) {                 // dat activeert wanneer klant verbonden wordt. io wilt input/output zeggen
     console.log('New connection: ' + socket);           // socket is een browser connectie met de server
+
     sockets.push(socket);                              // in de array van sockets voegen we de nieuwe socket toe. push wilt zetten zeggen
 
     socket.emit('gamedata', gamedata);
@@ -43,7 +45,7 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
 
     socket.on('naam', function (name) {
-        console.log('nieuwe bezoeker');
+        console.log('nieuwe bezoeker ' + name);
         socket.naam = name;
         emitToAllIncludingSelf(socket, 'netVerbonden', 'nieuwe bezoeker: ' + name);
     });
@@ -67,6 +69,11 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
                     });
                 }
             }
+            if (gamedata.players.length == 1) {
+                callGameDataAPI('/lobbies/5/' + lobbyId + '/player/' + name, 'POST', addPlayer1Callback);
+            } else {
+                callGameDataAPI('/lobbies/5/' + lobbyId + '/player/' + name, 'POST', addPlayer2Callback);
+            }
         } else {
             console.log('Player ' + name + ' cannot play because there are already 2 players!'); // als er in de array players al 2 namen heeft. dan staat die text in de console
         }
@@ -84,6 +91,8 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
 
         if (gamedata.keuzes[0] != undefined && gamedata.keuzes[1] != undefined) {           // keuzes mogen niet leeg zijn
             gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]);
+            callGameDataAPI('/players/5/' + gamedata.players[gamedata.winner].pid + '/50', 'POST', addScoreCallback);
+            callGameDataAPI('/players/5/' + gamedata.players[gamedata.winner == 0 ? 1 : 0].pid + '/10', 'POST', addScoreCallback);
         }
 
         emitToAll('gamedata', gamedata);
@@ -102,8 +111,63 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
 
 httpServer.listen(process.env.PORT || 3000, function () {                                             //je kiest de poort 3000
     console.log('listening on ' + (process.env.PORT || 3000));                                     //in command line verschijn string 'listening on *:3000'
+    callGameDataAPI('/lobbies/5/new?url=' + (process.env.HOST || 'localhost') + ':' + (process.env.PORT || 3000), 'POST', createLobbyCallback);
 });
 
+function callGameDataAPI(path, method, callback) {
+    var options = {
+        host: 'game-data-api.cfapps.io',
+        path: path,
+        method: method
+    };
+    httpAPI.request(options, callback).end();
+}
+
+function createLobbyCallback(response) {
+    var str = '';
+
+    response.on('data', function (chunk) {
+        str += chunk;
+    });
+    response.on('end', function () {
+        console.log('Response from API: ' + str);
+        var lobby = JSON.parse(str);
+        console.log('Created lobby with LID ' + lobby.lid);
+        lobbyId = lobby.lid;
+    });
+}
+
+function addPlayer1Callback(response) {
+    var str = '';
+
+    response.on('data', function (chunk) {
+        str += chunk;
+    });
+    response.on('end', function () {
+        console.log('Response from API: ' + str);
+        var player = JSON.parse(str);
+        console.log('Player 1 has PID ' + player.pid);
+        gamedata.players[0].pid = player.pid;
+    });
+}
+
+function addPlayer2Callback(response) {
+    var str = '';
+
+    response.on('data', function (chunk) {
+        str += chunk;
+    });
+    response.on('end', function () {
+        console.log('Response from API: ' + str);
+        var player = JSON.parse(str);
+        console.log('Player 2 has PID ' + player.pid);
+        gamedata.players[1].pid = player.pid;
+    });
+}
+
+function addScoreCallback(response) {
+
+}
 
 function emitToAll(messageType, message) {            //je kan nu altijd emitToAll gebruiken in plaats van sockets.emit() --> gemakkelijker
     for (var i = 0; i < sockets.length; i++) {
@@ -151,5 +215,6 @@ function determineWinner(choice1, choice2) {
         }
     }
 }
+
 
 

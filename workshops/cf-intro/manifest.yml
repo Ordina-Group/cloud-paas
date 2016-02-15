@@ -1,0 +1,8 @@
+---
+memory: 128M
+instances: 1
+applications:
+- name: rpsls
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  timeout: 120
+  host: rpsls
