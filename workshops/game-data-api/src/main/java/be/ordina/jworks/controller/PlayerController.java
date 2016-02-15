@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -20,8 +22,8 @@ public class PlayerController {
     private GameRepository gameRepository;
 
     @RequestMapping
-    public Map<String, Object> findAllPlayers() {
-        return gameRepository.findAllPlayers();
+    public List<Object> findAllPlayers() {
+        return new ArrayList<>(gameRepository.findAllPlayers().values());
     }
 
     @RequestMapping(value = "/{gid}/{pid}/{score}", method = RequestMethod.POST)
