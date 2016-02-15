@@ -331,9 +331,9 @@ body {
 }
 
 .orange {
-    color: #e98300;
+    color: #e98300!important;
 }
 
 .green {
-    color: seagreen;
+    color: seagreen!important;
 }
