@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -22,12 +24,12 @@ public class GameController {
     private GameRepository gameRepository;
 
     @RequestMapping
-    public Map<String, Object> getGames() {
+    public List<Object> getGames() {
         Map<String, Object> games = gameRepository.findAllGames();
 
         log.info("Found [" + games.size() + "] games");
 
-        return games;
+        return new ArrayList<>(games.values());
     }
 
     @RequestMapping(value = "/{name}")
