@@ -42,7 +42,7 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
         sockets.splice(index, 1);                                   // splice is het 1 element op die positie verwijderen
     });
 
-    socket.on('naam', function(name){
+    socket.on('naam', function (name) {
         console.log('nieuwe bezoeker');
         socket.naam = name;
         emitToAllIncludingSelf(socket, 'netVerbonden', 'nieuwe bezoeker: ' + name);
@@ -84,7 +84,6 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
 
         if (gamedata.keuzes[0] != undefined && gamedata.keuzes[1] != undefined) {           // keuzes mogen niet leeg zijn
             gamedata.winner = determineWinner(gamedata.keuzes[0], gamedata.keuzes[1]);
-            console.log('Winner: ' + (gamedata.winner ? 'Speler 1' : 'Speler 2'));      // vraagteken wilt zeggen wie wint het
         }
 
         emitToAll('gamedata', gamedata);
@@ -101,8 +100,8 @@ io.on('connection', function (socket) {                 // dat activeert wanneer
     });
 });
 
-httpServer.listen(3000, function () {                                             //je kiest de poort 3000
-    console.log('listening on *:3000');                                     //in command line verschijn string 'listening on *:3000'
+httpServer.listen(process.env.PORT || 3000, function () {                                             //je kiest de poort 3000
+    console.log('listening on ' + (process.env.PORT || 3000));                                     //in command line verschijn string 'listening on *:3000'
 });
 
 
