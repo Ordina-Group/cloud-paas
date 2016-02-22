@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+</head>
+<body>
+<section id="content" layout:fragment="content">
+    <h1>Home</h1>
+
+    <h2 th:text="${screenName}"></h2>
+    <a th:href="@{/play}">PLAY</a>
+</section>
+</body>
+</html>

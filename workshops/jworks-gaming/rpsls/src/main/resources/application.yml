@@ -1,0 +1,46 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+info:
+  name: Rock Paper Scissors Lizard Spock
+  version: @project.version@
+
+spring:
+  redis:
+    host: ${vcap.services.redis-service.credentials.host:192.168.99.100}
+    port: ${vcap.services.redis-service.credentials.port:6379}
+  social:
+    twitter:
+      appId: HtYJONkuDWpOs916g5toeJGkp
+      appSecret: itTBqcOVhytzEuUrF8XCFPY1CU1XAxOcpClHEWjh0PHqM6wn31
+  resources:
+    static-locations: classpath:/static/,classpath:/public/
+    chain:
+      enabled: true
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      exclude: static/**,public/**
+
+server:
+  port: ${PORT:8000}
+  compression:
+    enabled: true
+    mime-types: application/json,text/css,application/javascript
+    min-response-size: 512
+  session:
+    timeout: 900
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+---
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ${APPLICATION_DOMAIN}
+    nonSecurePort: 80
