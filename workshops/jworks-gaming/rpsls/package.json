@@ -1,0 +1,33 @@
+{
+  "name": "rpsls",
+  "version": "1.0.0",
+  "description": "Rock Paper Scissors Lizard Spock",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dieter Hubau <dhubau@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "jspm": "^0.16.29"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "src/main/resources/static"
+    },
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.5.0",
+      "angular-material": "github:angular/bower-material@^1.0.5",
+      "angular-route": "github:angular/bower-angular-route@^1.5.0",
+      "lodash": "npm:lodash@^4.5.1",
+      "sockjs": "npm:sockjs@^0.3.15",
+      "stomp-websocket": "github:jmesnil/stomp-websocket@^2.3.4"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  }
+}

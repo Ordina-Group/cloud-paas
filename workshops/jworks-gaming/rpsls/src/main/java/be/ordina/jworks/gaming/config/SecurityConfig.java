@@ -27,26 +27,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**/*.css", "/**/*.png", "/**/*.gif", "/**/*.jpg");
+        web.ignoring().antMatchers("/index.html", "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.gif", "/**/*.jpg");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/resources/**", "/auth/**", "/signin/**")
+                .antMatchers("/**", "/spring/auth/**", "/spring/signin/**")
                 .permitAll()
-                .antMatchers("/**")
+                .antMatchers("/spring/**")
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/signin")
-                .loginProcessingUrl("/signin/authenticate")
-                .failureUrl("/signin?param.error=bad_credentials")
+                .loginPage("/spring/signin")
+                .loginProcessingUrl("/spring/signin/authenticate")
+                .failureUrl("/spring/signin?param.error=bad_credentials")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/signout")
+                .logoutUrl("/spring/signout")
                 .deleteCookies("JSESSIONID")
                 .and()
                 .rememberMe()
