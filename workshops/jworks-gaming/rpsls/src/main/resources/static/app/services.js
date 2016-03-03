@@ -7,8 +7,8 @@ class GameService {
         this.$http = $http;
     }
 
-    static doSomethingCrazy() {
-        $log.info('CRRRAZZZZZYYYYY!')
+    doSomethingCrazy() {
+        this.$log.info("I'm doing something really crazy now!");
     }
 }
 

@@ -37,14 +37,14 @@
     </script>
 </head>
 <body ng-app="rpslsApp" ng-cloak>
-<md-content>
-    <md-toolbar ng-controller="signInController as ctrl" ng-cloak>
+<md-content ng-cloak>
+    <md-toolbar ng-controller="signInController as ctrl">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings">
                 <md-icon>sentiment_very_satisfied</md-icon>
             </md-button>
             <h2>
-                <span>Rock Paper Scissors Lizard Spock</span>
+                <span>Rock Paper Scissors Lizard Spock - HUH?</span>
             </h2>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Sign In" ng-hide="ctrl.signedIn" ng-click="ctrl.signIn()">

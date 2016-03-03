@@ -14,14 +14,10 @@ spring:
       appId: HtYJONkuDWpOs916g5toeJGkp
       appSecret: itTBqcOVhytzEuUrF8XCFPY1CU1XAxOcpClHEWjh0PHqM6wn31
   resources:
-    static-locations: classpath:/static/,classpath:/public/
     chain:
       enabled: true
   thymeleaf:
     cache: false
-  devtools:
-    restart:
-      exclude: static/**,public/**
 
 server:
   port: ${PORT:8000}
@@ -36,6 +32,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+---
+spring:
+  profiles: local
+  resources:
+    static-locations: file:src/main/resources/static/
+
 ---
 spring:
   profiles: cloud

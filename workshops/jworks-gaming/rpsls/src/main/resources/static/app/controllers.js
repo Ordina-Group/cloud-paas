@@ -2,45 +2,44 @@ var moduleName = 'rpsls.controllers';
 
 class GameController {
     constructor($log, gameService) {
-      this.$log = $log;
-      this.gameService = gameService;
-      this.start();
+        this.$log = $log;
+        this.gameService = gameService;
+        this.start();
     }
 
     start() {
-      this.gameService.doSomethingCrazy();
+        this.gameService.doSomethingCrazy();
     }
 }
 
 class HomeController {
-  constructor($log) {
-    this.$log = $log
-  }
+    constructor($log) {
+        this.$log = $log
+    }
 }
 
 class SignInController {
-  constructor($http, $log) {
-    this.signedIn = false;
-    this.$log = $log;
-    this.$http = $http;
+    constructor($http, $log) {
+        this.signedIn = false;
+        this.$log = $log;
+        this.$http = $http;
 
-    this.checkConnection();
-  }
+        this.checkConnection();
+    }
 
-  checkConnection() {
-    this.$log.info('Checking connection');
-    this.$http({
-      url: '/play',
-      method: 'GET'
-    }).then(
-      function (response) {
-          return response.data;
-      },
-      function (error) {
-          console.log('Error [' + error + '] when checking connection');
-          return {};
-    });
-  }
+    checkConnection() {
+        this.$log.info('Checking connection');
+        this.$http({
+            url: '/play',
+            method: 'GET'
+        }).then(
+            function (response) {
+                return response.data;
+            },
+            function (error) {
+                return error.data;
+            });
+    }
 }
 
 angular.module(moduleName, [])

@@ -20,7 +20,12 @@ app.config(function ($mdThemingProvider) {
         .when('/', {
             templateUrl: 'app/home.html',
             controller: 'homeController'
-        }).otherwise({redirectTo: '/'});
+        })
+        .when('/lala', {
+            templateUrl: 'app/lala.html',
+            controller: 'gameController'
+        })
+        .otherwise({redirectTo: '/'});
 })
 .config(function ($locationProvider) {
     $locationProvider.html5Mode(false);
