@@ -15,11 +15,13 @@ System.config({
 
   map: {
     "angular": "github:angular/bower-angular@1.5.0",
+    "angular-cookies": "github:angular/bower-angular-cookies@1.5.0",
     "angular-material": "github:angular/bower-material@1.0.5",
     "angular-route": "github:angular/bower-angular-route@1.5.0",
     "babel": "npm:babel-core@5.8.35",
     "babel-runtime": "npm:babel-runtime@5.8.35",
     "core-js": "npm:core-js@1.2.6",
+    "jquery": "npm:jquery@2.2.1",
     "lodash": "npm:lodash@4.5.1",
     "sockjs": "npm:sockjs@0.3.15",
     "stomp-websocket": "github:jmesnil/stomp-websocket@2.3.4",
@@ -27,6 +29,9 @@ System.config({
       "angular": "github:angular/bower-angular@1.5.0"
     },
     "github:angular/bower-angular-aria@1.5.0": {
+      "angular": "github:angular/bower-angular@1.5.0"
+    },
+    "github:angular/bower-angular-cookies@1.5.0": {
       "angular": "github:angular/bower-angular@1.5.0"
     },
     "github:angular/bower-angular-route@1.5.0": {

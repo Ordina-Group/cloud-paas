@@ -36,27 +36,33 @@
         System.import('./app/main');
     </script>
 </head>
-<body ng-app="rpslsApp" ng-cloak>
-<md-content ng-cloak>
+<body ng-app="rpslsApp">
+<md-content ng-class="{'ng-show': ready}">
     <md-toolbar ng-controller="signInController as ctrl">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings">
                 <md-icon>sentiment_very_satisfied</md-icon>
             </md-button>
             <h2>
-                <span>Rock Paper Scissors Lizard Spock - HUH?</span>
+                <span>Rock Paper Scissors Lizard Spock</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" aria-label="Sign In" ng-hide="ctrl.signedIn" ng-click="ctrl.signIn()">
-                <md-icon>lock</md-icon>
-            </md-button>
+            <form id="connectForm" method="POST" action="/connect/twitter" ng-hide="ctrl.authenticated">
+                <input type="hidden" name="_csrf" value="{{ctrl.xsrf_token}}"/>
+                <input type="hidden" name="oauth_callback" value="http://localhost:8000/"/>
+                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn" ng-click="ctrl.signIn()">
+                    <md-icon>compare_arrow</md-icon>
+                </md-button>
+            </form>
+            <span ng-show="ctrl.authenticated">{{ctrl.displayName}}</span>
         </div>
     </md-toolbar>
     <div ng-view>
     </div>
 </md-content>
-<div id="loading-indicator" ng-hide="true" class="loading-text">
-    Loading...
+<div id="loader-wrapper" class="ng-hide-animate" ng-class="{'ng-hide': ready}">
+    <h4 id="loader-title">please wait</h4>
+    <div id="loader"></div>
 </div>
 </body>
 </html>

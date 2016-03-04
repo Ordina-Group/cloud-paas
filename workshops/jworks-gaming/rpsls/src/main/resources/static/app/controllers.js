@@ -14,31 +14,45 @@ class GameController {
 
 class HomeController {
     constructor($log) {
-        this.$log = $log
+        this.$log = $log;
     }
 }
 
 class SignInController {
-    constructor($http, $log) {
-        this.signedIn = false;
+    constructor($rootScope, $http, $log, $timeout, $cookies, sessionService) {
+        $rootScope.ready = true;
+        this.xsrf_token = $cookies.get('XSRF-TOKEN');
+        this.authenticated = false;
         this.$log = $log;
         this.$http = $http;
+        this.$timeout = $timeout;
+        this.sessionService = sessionService;
 
-        this.checkConnection();
+        this.removeLoaderWrapper();
+        this.checkForUserSession();
     }
 
-    checkConnection() {
-        this.$log.info('Checking connection');
-        this.$http({
-            url: '/play',
-            method: 'GET'
-        }).then(
-            function (response) {
-                return response.data;
-            },
-            function (error) {
-                return error.data;
-            });
+    checkForUserSession() {
+        this.sessionService.checkUserSession().then(data => {
+            if (data.displayName) {
+                this.authenticated = true;
+                this.displayName = data.displayName;
+            } else {
+                this.$log.info('Not logged in');
+            }
+        });
+    }
+
+    removeLoaderWrapper() {
+        this.$timeout(
+            function () {
+                angular.element(document.querySelector('#loader-wrapper')).remove()
+            }, 1000
+        );
+    }
+
+    signIn() {
+        angular.element(document.querySelector('#connectForm')).submit();
     }
 }
 
