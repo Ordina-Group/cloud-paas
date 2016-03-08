@@ -13,7 +13,7 @@ app.config(function ($mdThemingProvider) {
     console.log('Configuring Material Design theme');
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
-        .accentPalette('blue');
+        .accentPalette('pink');
     $mdThemingProvider.setDefaultTheme('default');
 }).config(function ($routeProvider, $httpProvider) {
     console.log('Configuring Routes');

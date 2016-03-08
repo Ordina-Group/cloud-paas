@@ -8,11 +8,11 @@ div[ng-view] {
 
 footer {
     padding: 10px;
-    background-color: rgba(0,150,136, 0.4);
+    background-color: rgba(0,150,136, 0.5);
 }
 
 md-content {
-    transition: 2s linear all;
+    transition: 3s linear all;
     opacity: 0;
 }
 
@@ -20,8 +20,12 @@ md-content.ng-show {
     opacity: 1;
 }
 
+.md-padding {
+    padding: 5px 20px;
+}
+
 #loader-title {
-    color: rgb(0, 150, 136) !important;
+    color: rgb(255,64,129) !important;
     text-align: center;
     position: relative;
     top: calc(40% - 50px);
@@ -78,7 +82,7 @@ md-content.ng-show {
     bottom: 15px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: rgb(68, 138, 255);
+    border-top-color: rgb(255,64,129);
     animation: spin 1.5s linear infinite;
 }
 
