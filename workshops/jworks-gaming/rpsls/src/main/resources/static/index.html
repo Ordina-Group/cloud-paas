@@ -41,16 +41,16 @@
     <md-toolbar ng-controller="signInController as ctrl">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings">
-                <md-icon>sentiment_very_satisfied</md-icon>
+                <md-icon>touch_app</md-icon>
             </md-button>
             <h2>
-                <span>Rock Paper Scissors Lizard Spock</span>
+                <span>JWorks Gaming presents</span>
             </h2>
             <span flex></span>
             <form id="connectForm" method="POST" action="/connect/twitter" ng-hide="ctrl.authenticated">
                 <input type="hidden" name="_csrf" value="{{ctrl.xsrf_token}}"/>
                 <input type="hidden" name="oauth_callback" value="http://localhost:8000/"/>
-                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn" ng-click="ctrl.signIn()">
+                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn">
                     <md-icon>compare_arrow</md-icon>
                 </md-button>
             </form>

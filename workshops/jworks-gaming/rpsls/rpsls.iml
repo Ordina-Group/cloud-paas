@@ -3,9 +3,17 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
+        <fileset id="spring_boot_be.ordina.jworks.gaming.RpslsApplication" name="RpslsApplication" removed="true">
+          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/RpslsApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/application.yml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/bootstrap.yml</file>
+        </fileset>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/RpslsApplication.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/security/SecurityContext.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/config/SecurityConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/config/SessionConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/config/SocialConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/config/WebsocketConfig.java</file>
         </fileset>
       </configuration>
     </facet>
@@ -177,5 +185,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.restdocs:spring-restdocs-mockmvc:1.0.1.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.restdocs:spring-restdocs-core:1.0.1.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
+    <orderEntry type="library" name="rpsls node_modules" level="project" />
   </component>
 </module>

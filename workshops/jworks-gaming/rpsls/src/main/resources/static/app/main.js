@@ -12,8 +12,8 @@ var app = angular.module('rpslsApp', [ngMaterial, 'ngRoute', 'ngAnimate', 'ngCoo
 app.config(function ($mdThemingProvider) {
     console.log('Configuring Material Design theme');
     $mdThemingProvider.theme('default')
-        .primaryPalette('pink')
-        .accentPalette('deep-purple');
+        .primaryPalette('teal')
+        .accentPalette('blue');
     $mdThemingProvider.setDefaultTheme('default');
 }).config(function ($routeProvider, $httpProvider) {
     console.log('Configuring Routes');

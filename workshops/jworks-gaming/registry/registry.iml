@@ -3,6 +3,11 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
+        <fileset id="spring_boot_be.ordina.jworks.gaming.RegistryApplication" name="RegistryApplication" removed="true">
+          <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/RegistryApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/application.yml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/bootstrap.yml</file>
+        </fileset>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/be/ordina/jworks/gaming/RegistryApplication.java</file>
         </fileset>
