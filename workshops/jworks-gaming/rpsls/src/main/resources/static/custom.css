@@ -1,5 +1,18 @@
+body {
+    display: flex;
+}
+
+div[ng-view] {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+}
+
+footer {
+    padding: 10px;
+    background-color: rgba(0,150,136, 0.4);
+}
+
 md-content {
-    transition: 1s linear all;
+    transition: 2s linear all;
     opacity: 0;
 }
 
@@ -8,10 +21,10 @@ md-content.ng-show {
 }
 
 #loader-title {
-    color: rgb(233, 30, 99) !important;
+    color: rgb(0, 150, 136) !important;
     text-align: center;
     position: relative;
-    top: calc(50% - 50px);
+    top: calc(40% - 50px);
 }
 
 #loader-wrapper {
@@ -33,13 +46,13 @@ md-content.ng-show {
     display: block;
     position: relative;
     left: 50%;
-    top: 50%;
+    top: 40%;
     width: 100px;
     height: 100px;
     margin: -50px 0 0 -50px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: rgb(233, 30, 99);
+    border-top-color: rgb(0, 150, 136);
     animation: spin 2s linear infinite;
 }
 
@@ -65,7 +78,7 @@ md-content.ng-show {
     bottom: 15px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: rgb(124, 77, 255);
+    border-top-color: rgb(68, 138, 255);
     animation: spin 1.5s linear infinite;
 }
 

@@ -36,8 +36,8 @@
         System.import('./app/main');
     </script>
 </head>
-<body ng-app="rpslsApp">
-<md-content ng-class="{'ng-show': ready}">
+<body ng-app="rpslsApp" layout="column" layout-fill>
+<md-content ng-class="{'ng-show': ready}" layout="column" layout-fill>
     <md-toolbar ng-controller="signInController as ctrl">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings">
@@ -47,21 +47,31 @@
                 <span>JWorks Gaming presents</span>
             </h2>
             <span flex></span>
-            <form id="connectForm" method="POST" action="/connect/twitter" ng-hide="ctrl.authenticated">
+            <form id="connectForm" method="POST" action="/connect/twitter" ng-hide="ctrl.authenticated" flex>
                 <input type="hidden" name="_csrf" value="{{ctrl.xsrf_token}}"/>
                 <input type="hidden" name="oauth_callback" value="http://localhost:8000/"/>
-                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn">
+                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn" style="width: 100%; text-align: right">
+                    <span>Sign In with Twitter</span>
                     <md-icon>compare_arrow</md-icon>
                 </md-button>
             </form>
             <span ng-show="ctrl.authenticated">{{ctrl.displayName}}</span>
         </div>
     </md-toolbar>
-    <div ng-view>
+    <div ng-view flex>
     </div>
+    <footer layout="row">
+        <div>
+            <img src="/images/jworks-100.png"/>
+        </div>
+        <div flex></div>
+        <div layout="row" layout-align="center center">
+            <p style="color: white; font-weight: bold">Made with <md-icon style="color: rgb(233,30,99)">favorite</md-icon> by <a href="mailto:dhubau@gmail.com" style="font-weight: bold; color: rgb(68, 138, 255)">Dieter Hubau</a></p>
+        </div>
+    </footer>
 </md-content>
 <div id="loader-wrapper" class="ng-hide-animate" ng-class="{'ng-hide': ready}">
-    <h4 id="loader-title">please wait</h4>
+    <h4 id="loader-title">Loading, please wait</h4>
     <div id="loader"></div>
 </div>
 </body>
