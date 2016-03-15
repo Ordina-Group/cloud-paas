@@ -50,10 +50,6 @@ class SignInController {
             }, 1000
         );
     }
-
-    signIn() {
-        angular.element(document.querySelector('#connectForm')).submit();
-    }
 }
 
 angular.module(moduleName, [])
