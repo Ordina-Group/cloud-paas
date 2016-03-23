@@ -1,13 +1,14 @@
 import angular from 'angular';
 import ngMaterial from 'angular-material';
 import ngRoute from 'angular-route';
-import controllers from './controllers.js';
-import services from './services.js';
 import ngCookies from 'angular-cookies';
+
+import services from './services.js';
+import controllers from './controllers.js';
 
 console.log('Bootstrapping Angular v' + angular.version.full);
 
-var app = angular.module('rpslsApp', [ngMaterial, 'ngRoute', 'ngAnimate', 'ngCookies', services, controllers]);
+var app = angular.module('rpslsApp', ['ngMaterial', 'ngRoute', 'ngAnimate', 'ngCookies', services, controllers]);
 
 app.config(function ($mdThemingProvider) {
     console.log('Configuring Material Design theme');

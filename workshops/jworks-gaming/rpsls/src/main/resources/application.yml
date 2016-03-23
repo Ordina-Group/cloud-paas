@@ -3,7 +3,7 @@ logging:
 
 info:
   name: Rock Paper Scissors Lizard Spock
-  version: @project.version@
+  version: 1
 
 spring:
   redis:

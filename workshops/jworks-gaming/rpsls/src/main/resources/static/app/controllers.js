@@ -37,6 +37,8 @@ class SignInController {
             if (data.displayName) {
                 this.authenticated = true;
                 this.displayName = data.displayName;
+                this.imageUrl = data.imageUrl;
+                this.profileUrl = data.profileUrl;
             } else {
                 this.$log.info('Not logged in');
             }

@@ -26,7 +26,7 @@
 
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"/>
 
-    <link rel="stylesheet" href="jspm_packages/github/angular/bower-material@1.0.5/angular-material.min.css"/>
+    <link rel="stylesheet" href="jspm_packages/github/angular/bower-material@1.0.6/angular-material.min.css"/>
 
     <link rel="stylesheet" href="custom.css"/>
 
@@ -44,18 +44,28 @@
                 <md-icon>touch_app</md-icon>
             </md-button>
             <p>
-                <md-button href="https://ordina-jworks.github.io" target="_blank" class="md-raised md-accent">JWorks Gaming</md-button>
+                <md-button href="https://ordina-jworks.github.io" target="_blank" class="md-raised md-accent">JWorks
+                    Gaming
+                </md-button>
             </p>
             <span flex></span>
             <form id="connectForm" method="POST" action="/connect/twitter" ng-hide="ctrl.authenticated" flex>
                 <input type="hidden" name="_csrf" value="{{ctrl.xsrf_token}}"/>
                 <input type="hidden" name="oauth_callback" value="http://localhost:8000/"/>
-                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn" style="width: 100%; text-align: right">
+                <md-button type="submit" class="md-icon-button" aria-label="Sign In" ng-hide="signedIn"
+                           style="width: 100%; text-align: right">
                     <span>Sign In with Twitter</span>
                     <md-icon>security</md-icon>
                 </md-button>
             </form>
-            <span ng-show="ctrl.authenticated">Hello {{ctrl.displayName}}</span>
+            <span ng-show="ctrl.authenticated" style="margin-right: 5px">
+                {{ctrl.displayName}}
+            </span>
+            <span ng-show="ctrl.authenticated">
+                <a ng-href="{{ctrl.profileUrl}}">
+                    <img ng-src="{{ctrl.imageUrl}}" width="30" height="30"/>
+                </a>
+            </span>
         </div>
     </md-toolbar>
     <div ng-view flex>
@@ -66,7 +76,13 @@
         </div>
         <div flex></div>
         <div layout="row" layout-align="center center">
-            <p style="color: white; font-weight: bold">Made with <md-icon style="color: rgb(255,64,129)">favorite</md-icon> by <md-button href="https://ordina-jworks.github.io/author/dieter-hubau/" target="_blank" style="vertical-align: middle" class="md-raised md-accent">Dieter Hubau</md-button></p>
+            <p style="color: white; font-weight: bold">Made with
+                <md-icon style="color: rgb(255,64,129)">favorite</md-icon>
+                by
+                <md-button href="https://ordina-jworks.github.io/author/dieter-hubau/" target="_blank"
+                           style="vertical-align: middle" class="md-raised md-accent">Dieter Hubau
+                </md-button>
+            </p>
         </div>
     </footer>
 </md-content>
