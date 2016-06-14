@@ -22,7 +22,7 @@ body {
 
 ::selection {
     color: #000;
-    background: rgb(105, 210, 231);
+    background: #18b1e7;
     text-shadow: none;
 }
 
@@ -52,7 +52,7 @@ body {
 
 .reveal h2 {
     font-size: 2.11em;
-    color: rgb(105, 210, 231);
+    color: #18b1e7;
 }
 
 .reveal h3 {
@@ -221,7 +221,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a {
-    color: rgb(105, 210, 231);
+    color: #18b1e7;
     text-decoration: none;
     -webkit-transition: color 0.15s ease;
     -moz-transition: color 0.15s ease;
@@ -257,7 +257,7 @@ body {
 
 .reveal a:hover img {
     background: rgba(255, 255, 255, 0.2);
-    border-color: rgb(105, 210, 231);
+    border-color: #18b1e7;
     box-shadow: none;
 }
 
@@ -265,19 +265,19 @@ body {
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls button.navigate-left, .reveal .controls button.navigate-left.enabled {
-    border-right-color: rgb(105, 210, 231) !important;
+    border-right-color: #18b1e7 !important;
 }
 
 .reveal .controls button.navigate-right, .reveal .controls button.navigate-right.enabled {
-    border-left-color: rgb(105, 210, 231);
+    border-left-color: #18b1e7;
 }
 
 .reveal .controls button.navigate-up, .reveal .controls button.navigate-up.enabled {
-    border-bottom-color: rgb(105, 210, 231);
+    border-bottom-color: #18b1e7;
 }
 
 .reveal .controls button.navigate-down, .reveal .controls button.navigate-down.enabled {
-    border-top-color: rgb(105, 210, 231);
+    border-top-color: #18b1e7;
 }
 
 .reveal .controls button.navigate-left.enabled:hover {
@@ -327,7 +327,7 @@ body {
 }
 
 .blue {
-  color: rgb(105, 210, 231);
+  color: #18b1e7;
 }
 
 .orange {
