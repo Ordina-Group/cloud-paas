@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CloudFoundry - Introduction &amp; Architecture</title>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/ordina.css" id="theme">
+    <!--
+        Uncomment the PRINT PDF if you want to save the presentation to PDF.
+        <link rel="stylesheet" href="css/print/pdf.css" id="theme">
+    -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <!--Add support for earlier versions of Internet Explorer -->
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <img src="img/securex.png" class="transparent"/>
+            <h1></h1>
+            <img src="img/ordina-logo.png" class="transparent"/>
+            <h1></h1>
+            <img src="img/pcf.png" class="transparent"/>
+        </section>
+        <section>
+            <h3>Why are we here?</h3>
+
+            <img src="img/ordina-logo.png" class="transparent" style="padding: 5%"/>
+
+            <p class="fragment">Highlight our <span class="orange">knowledge</span> of <span class="blue">Cloud Foundry</span></p>
+
+            <p class="fragment">Explain our relationship with <span class="pivotal">Pivotal</span></p>
+
+            <p class="fragment">Show some of our <span class="blue">Community Efforts</span></p>
+
+            <p class="fragment">Discuss how this can benefit <span class="orange">Securex</span></p>
+        </section>
+        <section>
+          <section>
+            <h3>Beginning of 2015</h3>
+
+            <h3 class="fragment">First Impressions of <span class="blue">Cloud Foundry</span></h3>
+
+            <span class="fragment"><img src="img/derp.png" class="transparent"/></span>
+
+            <p class="fragment">A <span class="blue">cloud computing</span> service offering</p>
+
+            <p class="fragment">Allows you to <span class="orange">manage and run applications</span></p>
+
+            <p class="fragment"><span class="blue">Without worrying</span> about infrastructure</p>
+          </section>
+          <section>
+            <h3>November 2015</h3>
+
+            <span class="fragment"><img src="img/cf-summit.jpg" class="transparent"/></span>
+
+            <p class="fragment">Learned about <span class="blue">Cloud Foundry</span> itself</p>
+
+            <p class="fragment">Learned the <span class="orange">different vendors and distributions</span></p>
+
+            <p class="fragment">Networked with <span class="pivotal">EMC / Pivotal</span></p>
+
+            <p class="fragment">Started developing on <span class="pivotal">Pivotal Web Services</span></p>
+          </section>
+          <section>
+            <h3>January 2016</h3>
+
+            <span class="fragment"><img src="img/cloud-foundry.png" class="transparent"/></span>
+
+            <p class="fragment">Organised first workshop about <span class="blue">Cloud Foundry</span> in general</p>
+
+            <p class="fragment">Deployed microservices POC on <span class="pivotal">Pivotal Web Services</span></p>
+          </section>
+          <section>
+            <h3>February 2016</h3>
+
+            <span class="fragment"><img src="img/pivotal-ws.png" class="transparent"/></span>
+
+            <p class="fragment">Second workshop about <span class="pivotal">Pivotal Cloud Foundry</span> specifically</p>
+
+            <p class="fragment">Showcased the POC on <span class="pivotal">PWS</span></p>
+
+            <p class="fragment">Talked about <span class="blue">Lattice</span> for local development</p>
+          </section>
+          <section>
+            <h3>Q2 2016</h3>
+
+            <span class="fragment"><img src="img/spring-cloud-netflix.png" class="transparent"/></span>
+
+            <p class="fragment">Development of bigger POC with <span class="pivotal">Spring Cloud</span> and <span class="blue">Netflix</span> stack</p>
+
+            <p class="fragment">Deployed on <span class="pivotal">PWS</span></p>
+
+            <p class="fragment">Sent in CFP for <span class="pivotal">SpringOnePlatform</span></p>
+
+            <p class="fragment">Got <span class="orange">Accepted!</span></p>
+          </section>
+          <section>
+            <h3>August 2016</h3>
+
+            <span class="fragment"><img width="50%" src="img/spring-one-platform.png" class="transparent"/></span>
+
+            <p class="fragment">Talks about <span class="pivotal">Spring Boot Starters</span> and <span class="orange">Spring REST Docs</span></p>
+
+            <p class="fragment">Lightning talk about <span class="orange">Microservices Dashboard</span></p>
+
+            <p class="fragment">Learned about <span class="pivotal">Spring Cloud Streams</span></p>
+          </section>
+          <section>
+            <h3>Oktober 2016</h3>
+
+            <span class="fragment"><img width="50%" src="img/join-logo.jpg" class="transparent"/></span>
+
+            <p class="fragment">Talks about <span class="pivotal">Spring Reactor</span> and <span class="blue">Couchbase</span></p>
+
+            <p class="fragment">Talks about <span class="orange">Docker</span> and <span class="blue">Kubernetes</span></p>
+
+            <p class="fragment">A way of giving back to the <span class="orange">community</span></p>
+          </section>
+          <section>
+            <h3>January 2017</h3>
+
+            <span class="fragment"><img width="50%" src="img/pcf-gcp.jpg" class="transparent"/></span>
+
+            <p class="fragment">Workshop on <span class="pivotal">Pivotal Cloud Foundry</span> on <span class="blue">Google Cloud Platform</span></p>
+
+            <p class="fragment">Research several <span class="orange">Build Pipelines</span></p>
+
+            <p class="fragment">Research different <span class="pivotal">Messaging solutions</span></p>
+
+            <p class="fragment">Make use of <span class="blue">Google Cloud Service Broker</span></p>
+          </section>
+          <section>
+            <h3>April 2017</h3>
+
+            <span class="fragment"><img width="50%" src="img/pcf-cloud-native.jpg" class="transparent"/></span>
+
+            <p class="fragment">Training on <span class="pivotal">Pivotal Cloud Foundry</span> by <span class="blue">Pivotal people</span></p>
+
+            <p class="fragment">Ops training of <span class="blue">Ops Manager</span></p>
+
+            <p class="fragment">Devs training of <span class="pivotal">Apps Manager</span></p>
+          </section>
+          <section>
+            <h3>Upcoming</h3>
+
+            <span class="fragment"><img width="50%" src="img/cf-certified.png" class="transparent"/></span>
+
+            <p class="fragment">Verification of expertise using the Cloud Foundry platform and <span class="blue">building cloud-native applications</span></p>
+
+            <p class="fragment">Cloud Foundry is the <span class="orange">third highest paid technology</span></p>
+
+            <p class="fragment">Available from <span class="pivotal">June</span></p>
+          </section>
+        </section>
+        <section>
+            <h3>Cloud Foundry enables</h3>
+
+            <h3><span class="orange">Twelve Factor</span> apps</h3>
+
+            <p class="fragment">Set of <span class="orange">best practices</span> for developing and deploying <span class="blue">cloud-native software</span></p>
+
+            <p class="fragment">Practices translate into platform features and workflow requirements</p>
+
+            <p class="fragment">12factor.net</p>
+        </section>
+        <section id="logos">
+            <h3>Companies using</h3>
+
+            <h3><span class="pivotal">Pivotal Cloud Foundry</span></h3>
+
+            <img src="img/ge-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/allstate-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/cl-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/comcast-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/ford-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/garmin-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/home-depot-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/irs-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/lm-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/mb-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/philips-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/verizon-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/ordina-logo.png" height="80px" class="fragment transparent"/>
+            <img src="img/yahoo-logo.png" height="80px" class="fragment transparent"/>
+        </section>
+        <section>
+            <h3>Yahoo Japan uses <span class="pivotal">PCF</span></h3>
+
+            <img src="img/yahoo-japan.png" class="transparent"/>
+        </section>
+        <section id="eighteenf">
+            <h3>Even the <span class="orange">U.S. government</span> runs on Cloud Foundry</h3>
+
+            <img src="img/18f-logo.png" class="transparent"/>
+
+            <p class="fragment"><i>"Transforming how the U.S. gov builds, buys and shares digital services"</i></p>
+
+            <p class="fragment">Design centric, agile, open and data-driven</p>
+
+            <p class="fragment"><span class="blue"><i>"Always be shipping"</i></span></p>
+
+            <p class="fragment">Just start. Build MVP. Iterate. Learn. Do it again</p>
+        </section>
+    </div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        transition: 'convex',
+        dependencies: [
+            {
+                src: 'plugin/markdown/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            },
+            {
+                src: 'plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: 'plugin/notes/notes.js',
+                async: true
+            }
+        ]
+    });
+</script>
+</body>
+</html>
